@@ -4,4 +4,4 @@ title: "Resume"
 
 Download my resume here:
 
-##  [Resume PDF](files/CV-QiaoxinLi.pdf)
+##  [Resume PDF](files/CV_QiaoxinLi.pdf)
