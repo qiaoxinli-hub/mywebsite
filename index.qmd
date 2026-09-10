@@ -10,7 +10,7 @@ title: ""
 ::: {.column width="65%"}
 ![](images/UniversityofPennsylvania_FullLogo_RGB.png){width="250px"}
 
-# Student Name
+# Qiaoxin Li
 
 University of Pennsylvaina
 
@@ -19,10 +19,10 @@ Welcome to my personal website.
 ### Quick Links
 
 <div>
-  <a href="https://github.com/USERNAME"><i class="bi bi-github fs-3"></i></a>
-  <a href="https://linkedin.com/in/USERNAME"><i class="bi bi-linkedin fs-3"></i></a>
+  <a href="https://github.com/qiaoxinli-hub"><i class="bi bi-github fs-3"></i></a>
+  <a href="https://linkedin.com/in/joanna-li-68489b435"><i class="bi bi-linkedin fs-3"></i></a>
   <a href="resume.qmd"><i class="bi bi-file-earmark-person-fill fs-3"></i></a>
-  <a href="mailto:student@email.com"><i class="bi bi-envelope-fill fs-3"></i></a>
+  <a href="mailto:qiaoxinl@sas.upenn.edu"><i class="bi bi-envelope-fill fs-3"></i></a>
 </div>
 :::
 :::::
