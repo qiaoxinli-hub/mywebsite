@@ -1,13 +1,122 @@
 ---
-title: "My First Blog Post"
-date: 2026-06-16
+title: "My First Blog Post: From Simple Logit to Nested Logit"
+date: 2026-09-11
 categories:
-  - personal
-  - data-science
+  - Econometrics
+  - Microeconomics
 ---
 
 ![](figure1.png){width="500px"}
 
-This is my first blog post. Example $\LaTeX$ equation: $\frac{1}{2}\sum_{i=1}^nx_i$
+## 1. Introduction: Why Discrete Choice Matters
+
+In traditional microeconomics, consumers choose continuous quantities of goods (e.g., how many pounds of apples to buy). However, real-world product markets rarely look like that. When buying a car, choosing an airline, or picking a breakfast cereal, consumers face a **discrete choice**: they purchase exactly one option out of many competing alternatives.
+
+To model this, economists use the **Random Utility Model (RUM)**. Consumer $i$'s utility from choosing product $j$ is defined as:
+
+$$U_{ij} = \delta_j + \varepsilon_{ij}$$
+
+Where $\delta_j = \mathbf{X}_j \beta - \alpha p_j$ represents the mean utility of product $j$ (based on characteristics $\mathbf{X}_j$ and price $p_j$), and $\varepsilon_{ij}$ is an idiosyncratic taste shock private to consumer $i$.
+
+---
+
+## 2. The Simple Logit Model and Its Hidden Trap
+
+### The Elegant Linear Equation
+Assuming $\varepsilon_{ij}$ follows an independent and identically distributed (i.i.d.) Type I Extreme Value (Gumbel) distribution gives us the standard **Multinomial Logit** choice probability:
+
+$$s_j = P_{ij} = \frac{\exp(\delta_j)}{\sum_{k=0}^J \exp(\delta_k)}$$
+
+By normalizing the outside option's mean utility to $\delta_0 = 0$, Berry (1994) showed a brilliant analytical trick: dividing product $j$'s market share $s_j$ by the outside good share $s_0$ and taking the natural log yields a simple linear equation:
+
+$$\ln\left(\frac{s_j}{s_0}\right) = \delta_j = \mathbf{X}_j \beta - \alpha p_j$$
+
+This linear inversion allows us to estimate consumer demand using Ordinary Least Squares (OLS) in R with market-level share data!
+
+### The Flaw: Independence of Irrelevant Alternatives (IIA)
+Despite its mathematical beauty, Simple Logit suffers from a major flaw known as **IIA**. Consider the ratio of market shares between any two products $j$ and $k$:
+
+$$\frac{s_j}{s_k} = \frac{\exp(\delta_j)}{\exp(\delta_k)}$$
+
+Notice that this ratio depends **only** on products $j$ and $k$, completely unaffected by any third option in the market. 
+
+* **The Red Bus / Blue Bus Paradox**: 
+Suppose commuters choose between taking a **Car** (50% share) or a **Red Bus** (50% share). If a local agency introduces a **Blue Bus** (identical to Red Bus except for color), standard Logit predicts all three options split shares equally at 33.3%. In reality, Blue Bus should only steal ridership from Red Bus, leaving Car’s share at 50%.
+
+---
+
+## 3. The Fix: Nested Logit
+
+To fix IIA without losing model tractability, the **Nested Logit Model** groups similar products into "nests" $g \in \{1, \dots, G\}$ (e.g., placing Red Bus and Blue Bus together in a "Bus" nest). 
+
+Taste shocks $\varepsilon_{ij}$ are allowed to be correlated within the same nest, governed by the **nesting parameter** $\lambda \in (0, 1]$:
+* $\lambda = 1$: No correlation (collapses back to Simple Logit).
+* $\lambda \to 0$: Strong correlation; products in the nest are near-perfect substitutes.
+
+### The Nested Logit Estimating Equation
+Decomposing choice into nest selection and within-nest product selection modifies our OLS regression equation by adding **one extra regressor**:
+
+$$\ln\left(\frac{s_j}{s_0}\right) = \mathbf{X}_j \beta - \alpha p_j + (1 - \lambda) \ln(s_{j|g})$$
+
+Where $s_{j|g} = \frac{s_j}{\sum_{k \in g} s_k}$ is product $j$'s market share *within* its own nest $g$. The coefficient on $\ln(s_{j|g})$ directly estimates $(1 - \lambda)$.
+
+---
+
+## 4. Empirical Implementation in R
+
+Let's simulate a market for 4 products categorized into two nests (**Sweet** vs. **Plain** cereals) across 100 markets, and compare Simple Logit versus Nested Logit estimation.
+
+```{r}
+#| message: false
+#| warning: false
+
+library(dplyr)
+library(ggplot2)
+
+set.seed(123)
+n_markets <- 100
+
+# 1. Simulate Synthetic Market Data
+df <- expand.grid(
+  market = 1:n_markets,
+  product = c("Honey Crunch", "Choco Puffs", "Crispy Flakes", "Fiber Bran")
+) %>%
+  mutate(
+    nest = ifelse(product %in% c("Honey Crunch", "Choco Puffs"), "Sweet", "Plain"),
+    sugar = ifelse(nest == "Sweet", runif(n(), 8, 15), runif(n(), 1, 5)),
+    price = runif(n(), 2.0, 5.0),
+    # True mean utility
+    delta = 1.5 + 0.2 * sugar - 0.8 * price
+  )
+
+# 2. Compute Market Shares
+df <- df %>%
+  group_by(market) %>%
+  mutate(
+    exp_delta = exp(delta),
+    share = exp_delta / (sum(exp_delta) + 1), # 1 is exp(delta_0)
+    share0 = 1 - sum(share)
+  ) %>%
+  ungroup()
+
+# 3. Compute Within-Nest Share (s_j|g) for Nested Logit
+df <- df %>%
+  group_by(market, nest) %>%
+  mutate(nest_share = sum(share)) %>%
+  ungroup() %>%
+  mutate(
+    within_nest_share = share / nest_share,
+    log_share_ratio = log(share / share0),
+    log_within_nest_share = log(within_nest_share)
+  )
+
+# 4. Estimation
+# Model 1: Simple Logit
+fit_simple <- lm(log_share_ratio ~ sugar + price, data = df)
+
+# Model 2: Nested Logit
+fit_nested <- lm(log_share_ratio ~ sugar + price + log_within_nest_share, data = df)
+
+summary(fit_nested)
 
 ---

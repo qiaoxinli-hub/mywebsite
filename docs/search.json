@@ -82,5 +82,33 @@
     "title": "About Me",
     "section": "qiaoxinl@sas.upenn.edu",
     "text": "qiaoxinl@sas.upenn.edu"
+  },
+  {
+    "objectID": "blog/posts/post1/Untitled.html#introduction-why-discrete-choice-matters",
+    "href": "blog/posts/post1/Untitled.html#introduction-why-discrete-choice-matters",
+    "title": "My First Blog Post: From Simple Logit to Nested Logit",
+    "section": "1. Introduction: Why Discrete Choice Matters",
+    "text": "1. Introduction: Why Discrete Choice Matters\nIn traditional microeconomics, consumers choose continuous quantities of goods (e.g., how many pounds of apples to buy). However, real-world product markets rarely look like that. When buying a car, choosing an airline, or picking a breakfast cereal, consumers face a discrete choice: they purchase exactly one option out of many competing alternatives.\nTo model this, economists use the Random Utility Model (RUM). Consumer \\(i\\)’s utility from choosing product \\(j\\) is defined as:\n\\[U_{ij} = \\delta_j + \\varepsilon_{ij}\\]\nWhere \\(\\delta_j = \\mathbf{X}_j \\beta - \\alpha p_j\\) represents the mean utility of product \\(j\\) (based on characteristics \\(\\mathbf{X}_j\\) and price \\(p_j\\)), and \\(\\varepsilon_{ij}\\) is an idiosyncratic taste shock private to consumer \\(i\\)."
+  },
+  {
+    "objectID": "blog/posts/post1/Untitled.html#the-simple-logit-model-and-its-hidden-trap",
+    "href": "blog/posts/post1/Untitled.html#the-simple-logit-model-and-its-hidden-trap",
+    "title": "My First Blog Post: From Simple Logit to Nested Logit",
+    "section": "2. The Simple Logit Model and Its Hidden Trap",
+    "text": "2. The Simple Logit Model and Its Hidden Trap\n\nThe Elegant Linear Equation\nAssuming \\(\\varepsilon_{ij}\\) follows an independent and identically distributed (i.i.d.) Type I Extreme Value (Gumbel) distribution gives us the standard Multinomial Logit choice probability:\n\\[s_j = P_{ij} = \\frac{\\exp(\\delta_j)}{\\sum_{k=0}^J \\exp(\\delta_k)}\\]\nBy normalizing the outside option’s mean utility to \\(\\delta_0 = 0\\), Berry (1994) showed a brilliant analytical trick: dividing product \\(j\\)’s market share \\(s_j\\) by the outside good share \\(s_0\\) and taking the natural log yields a simple linear equation:\n\\[\\ln\\left(\\frac{s_j}{s_0}\\right) = \\delta_j = \\mathbf{X}_j \\beta - \\alpha p_j\\]\nThis linear inversion allows us to estimate consumer demand using Ordinary Least Squares (OLS) in R with market-level share data!\n\n\nThe Flaw: Independence of Irrelevant Alternatives (IIA)\nDespite its mathematical beauty, Simple Logit suffers from a major flaw known as IIA. Consider the ratio of market shares between any two products \\(j\\) and \\(k\\):\n\\[\\frac{s_j}{s_k} = \\frac{\\exp(\\delta_j)}{\\exp(\\delta_k)}\\]\nNotice that this ratio depends only on products \\(j\\) and \\(k\\), completely unaffected by any third option in the market.\n\nThe Red Bus / Blue Bus Paradox: Suppose commuters choose between taking a Car (50% share) or a Red Bus (50% share). If a local agency introduces a Blue Bus (identical to Red Bus except for color), standard Logit predicts all three options split shares equally at 33.3%. In reality, Blue Bus should only steal ridership from Red Bus, leaving Car’s share at 50%."
+  },
+  {
+    "objectID": "blog/posts/post1/Untitled.html#the-fix-nested-logit",
+    "href": "blog/posts/post1/Untitled.html#the-fix-nested-logit",
+    "title": "My First Blog Post: From Simple Logit to Nested Logit",
+    "section": "3. The Fix: Nested Logit",
+    "text": "3. The Fix: Nested Logit\nTo fix IIA without losing model tractability, the Nested Logit Model groups similar products into “nests” \\(g \\in \\{1, \\dots, G\\}\\) (e.g., placing Red Bus and Blue Bus together in a “Bus” nest).\nTaste shocks \\(\\varepsilon_{ij}\\) are allowed to be correlated within the same nest, governed by the nesting parameter \\(\\lambda \\in (0, 1]\\): * \\(\\lambda = 1\\): No correlation (collapses back to Simple Logit). * \\(\\lambda \\to 0\\): Strong correlation; products in the nest are near-perfect substitutes.\n\nThe Nested Logit Estimating Equation\nDecomposing choice into nest selection and within-nest product selection modifies our OLS regression equation by adding one extra regressor:\n\\[\\ln\\left(\\frac{s_j}{s_0}\\right) = \\mathbf{X}_j \\beta - \\alpha p_j + (1 - \\lambda) \\ln(s_{j|g})\\]\nWhere \\(s_{j|g} = \\frac{s_j}{\\sum_{k \\in g} s_k}\\) is product \\(j\\)’s market share within its own nest \\(g\\). The coefficient on \\(\\ln(s_{j|g})\\) directly estimates \\((1 - \\lambda)\\)."
+  },
+  {
+    "objectID": "blog/posts/post1/Untitled.html#empirical-implementation-in-r",
+    "href": "blog/posts/post1/Untitled.html#empirical-implementation-in-r",
+    "title": "My First Blog Post: From Simple Logit to Nested Logit",
+    "section": "4. Empirical Implementation in R",
+    "text": "4. Empirical Implementation in R\nLet’s simulate a market for 4 products categorized into two nests (Sweet vs. Plain cereals) across 100 markets, and compare Simple Logit versus Nested Logit estimation.\n#| message: false #| warning: false\nlibrary(dplyr) library(ggplot2)\nset.seed(123) n_markets &lt;- 100"
   }
 ]
