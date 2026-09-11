@@ -4,28 +4,28 @@
     "href": "index.html",
     "title": "Qiaoxin Li",
     "section": "",
-    "text": "Qiaoxin Li\nUniversity of Pennsylvaina\nWelcome to my personal website.\n\nQuick Links"
+    "text": "Qiaoxin Li\nUniversity of Pennsylvaina\nHiWelcome to my personal website.\n\nQuick Links"
   },
   {
     "objectID": "bio.html",
     "href": "bio.html",
     "title": "About Me",
     "section": "",
-    "text": "Write a short biography here.\nInclude:"
+    "text": "I am Currently pursuing a Master’s degree in Applied Economics and Data Science at the University of Pennsylvania, with a solid background in economics and quantitative analytics.\nMy technical toolkit includes Python, R, Stata, SQL, C++, and Excel, which I apply to financial data processing and quantative analytics.\nWith hands-on experience spanning equity research, fraud risk detection, and operational risk management, I leverage data-driven strategies to solve real problems at the intersection of finance and technology.\nI aspire to pursue roles such as Risk Analyst or Strategy Analyst in the future, where I can combine data analysis and financial knowledge to identify risks, evaluate opportunities, and drive better business and investment decisions."
   },
   {
     "objectID": "bio.html#education",
     "href": "bio.html#education",
     "title": "About Me",
     "section": "Education",
-    "text": "Education\nMaster of Applied Economics and Data Science, University of Pennsylvania (expaceted 2027) Batelor of Science, University Name 2026"
+    "text": "Education\n\nMaster of Applied Economics and Data Science, University of Pennsylvania (expected 2027)\nBachelor of Economics，Shanghai University of Finance and Economics 2026"
   },
   {
     "objectID": "bio.html#interests",
     "href": "bio.html#interests",
     "title": "About Me",
     "section": "Interests",
-    "text": "Interests\n\nEconometrics\nMachine Learning\nData Analysis"
+    "text": "Interests\n\nEquity Research\nRisk Management/ Fintech\nInvestment Strategies"
   },
   {
     "objectID": "bio.html#contact",
@@ -75,5 +75,12 @@
     "title": "About",
     "section": "",
     "text": "About this site\n\n1 + 1\n\n[1] 2"
+  },
+  {
+    "objectID": "bio.html#qiaoxinlsas.upenn.edu",
+    "href": "bio.html#qiaoxinlsas.upenn.edu",
+    "title": "About Me",
+    "section": "qiaoxinl@sas.upenn.edu",
+    "text": "qiaoxinl@sas.upenn.edu"
   }
 ]

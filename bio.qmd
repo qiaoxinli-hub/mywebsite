@@ -2,27 +2,28 @@
 title: "About Me"
 ---
 
-Write a short biography here.
+I am Currently pursuing a Master’s degree in Applied Economics and Data Science at the University of Pennsylvania, with a solid background in economics and quantitative analytics.
 
-Include:
+My technical toolkit includes Python, R, Stata, SQL, C++, and Excel, which I apply to financial data processing and quantative analytics.
 
--   Educational background
--   Professional interests
--   Technical skills
--   Career goals
+With hands-on experience spanning equity research, fraud risk detection, and operational risk management, I leverage data-driven strategies to solve real problems at the intersection of finance and technology.
+
+I aspire to pursue roles such as Risk Analyst or Strategy Analyst in the future, where I can combine data analysis and financial knowledge to identify risks, evaluate opportunities, and drive better business and investment decisions.
 
 ## Education
 
-Master of Applied Economics and Data Science, University of Pennsylvania (expaceted 2027) Batelor of Science, University Name 2026
+- Master of Applied Economics and Data Science, University of Pennsylvania (expected 2027) 
+
+- Bachelor of Economics，Shanghai University of Finance and Economics 2026
 
 ## Interests
 
--   Econometrics
--   Machine Learning
--   Data Analysis
+-   Equity Research
+-   Risk Management/ Fintech
+-   Investment Strategies
 
 ## Contact
 
-## student\@email.edu
+## qiaoxinl@sas.upenn.edu
 
 ------------------------------------------------------------------------
