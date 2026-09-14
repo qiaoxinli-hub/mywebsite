@@ -46,7 +46,7 @@
     "href": "blog/index.html",
     "title": "Blog",
     "section": "",
-    "text": "My First Blog Post\n\n\n\n\n\n\n\n\n\n\n\nJun 16, 2026\n\n\n\n\n\n\n\n\n\n\n\n\nMy Second Blog Post\n\n\n\n\n\n\n\n\n\n\n\nJun 16, 2026\n\n\n\n\n\n\nNo matching items"
+    "text": "My First Blog Post: Understanding Logit\n\n\n\n\n\n\n\n\nSep 14, 2026\n\n\n\n\n\n\n\n\n\n\n\n\nMy Second Blog Post\n\n\n\n\n\n\n\n\nJun 16, 2026\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "blog/posts/post1/Untitled.html",
@@ -110,5 +110,75 @@
     "title": "My First Blog Post: From Simple Logit to Nested Logit",
     "section": "4. Empirical Implementation in R",
     "text": "4. Empirical Implementation in R\nLet’s simulate a market for 4 products categorized into two nests (Sweet vs. Plain cereals) across 100 markets, and compare Simple Logit versus Nested Logit estimation.\n#| message: false #| warning: false\nlibrary(dplyr) library(ggplot2)\nset.seed(123) n_markets &lt;- 100"
+  },
+  {
+    "objectID": "blog/posts/post1/Untitled.html#introduction-why-do-we-need-the-logit",
+    "href": "blog/posts/post1/Untitled.html#introduction-why-do-we-need-the-logit",
+    "title": "My First Blog Post: Understanding Logit",
+    "section": "1. Introduction: Why Do We Need the Logit?",
+    "text": "1. Introduction: Why Do We Need the Logit?\nIn economics and data science, we often want to predict the probability of an event. For example, we may want to estimate the probability that a person votes for a certain political party, buys a product, or chooses one transportation option over another.\nAt first, it seems natural to use a linear regression:\n\\[\nP(Y=1|X)=\\beta_0+\\beta_1X\n\\]\nHowever, probability must always lie between 0 and 1. A linear regression can produce values such as 1.2 or -0.3, which cannot be probabilities. The logit provides a simple way to solve this problem.\nThe idea becomes much more intuitive once we start with odds."
+  },
+  {
+    "objectID": "blog/posts/post1/Untitled.html#from-probability-to-odds",
+    "href": "blog/posts/post1/Untitled.html#from-probability-to-odds",
+    "title": "My First Blog Post: Understanding Logit",
+    "section": "2. From Probability to Odds",
+    "text": "2. From Probability to Odds\nOdds compare the probability that an event happens with the probability that it does not happen:\n\\[\n\\text{Odds}=\\frac{p}{1-p}\n\\]\nThe idea of odds can be traced back to gambling. Suppose two people play a dice game. Player A wins if the die shows a 3, while Player B wins otherwise.\nThe probability that A wins is:\n\\[\nP(A)=\\frac{1}{6}\n\\]\nThe probability that A loses is:\n\\[\nP(A^c)=\\frac{5}{6}\n\\]\nTherefore, the odds that A wins are:\n\\[\n\\text{Odds}=\\frac{1/6}{5/6}=\\frac{1}{5}\n\\]\nIn other words, for every $1 bet on A, a fair bet would require $5 on B.\nOdds are useful, but they are still restricted to positive values. Taking the natural logarithm gives us the logit transformation."
+  },
+  {
+    "objectID": "blog/posts/post1/Untitled.html#the-logit-function-probability-becomes-log-odds",
+    "href": "blog/posts/post1/Untitled.html#the-logit-function-probability-becomes-log-odds",
+    "title": "My First Blog Post: Understanding Logit",
+    "section": "3. The Logit Function: Probability Becomes Log-Odds",
+    "text": "3. The Logit Function: Probability Becomes Log-Odds\nThe logit function is defined as:\n\\[\n\\operatorname{logit}(p)\n=\n\\ln\\left(\\frac{p}{1-p}\\right)\n\\]\nUnlike probability, which is restricted to the interval \\((0,1)\\), the logit can take any value from \\(-\\infty\\) to \\(+\\infty\\).\nThis transformation is useful because it converts a bounded probability into an unbounded variable that can be modeled using a linear equation.\nFor example, if:\n\\[\np=0.8\n\\]\nthen:\n\\[\n\\operatorname{logit}(0.8)\n=\n\\ln\\left(\\frac{0.8}{0.2}\\right)\n=\n\\ln(4)\n\\approx1.39\n\\]\nThe interpretation is straightforward: a probability greater than 0.5 produces positive log-odds, a probability of 0.5 produces zero log-odds, and a probability below 0.5 produces negative log-odds."
+  },
+  {
+    "objectID": "blog/posts/post1/Untitled.html#the-logit-model",
+    "href": "blog/posts/post1/Untitled.html#the-logit-model",
+    "title": "My First Blog Post: Understanding Logit",
+    "section": "4. The Logit Model",
+    "text": "4. The Logit Model\nThe logit model applies this transformation to a statistical model.\nSuppose \\(Y\\) is a binary outcome:\n\\[\nY=\n\\begin{cases}\n1 & \\text{if an event occurs}\\\\\n0 & \\text{otherwise}\n\\end{cases}\n\\]\nLet:\n\\[\np=P(Y=1|X)\n\\]\nA logit model assumes that the log-odds of the event are a linear function of the explanatory variables:\n\\[\n\\boxed{\n\\ln\\left(\\frac{p}{1-p}\\right)\n=\n\\beta_0+\\beta_1X_1+\\cdots+\\beta_kX_k\n}\n\\]\nThis is the key connection between the logit function and the logit model.\nThe logit function is the transformation\n\\[\n\\operatorname{logit}(p)\n=\n\\ln\\left(\\frac{p}{1-p}\\right),\n\\]\nwhile the logit model assumes that this transformed probability is linear in the explanatory variables."
+  },
+  {
+    "objectID": "blog/posts/post1/Untitled.html#from-the-logit-model-to-probability",
+    "href": "blog/posts/post1/Untitled.html#from-the-logit-model-to-probability",
+    "title": "My First Blog Post: Understanding Logit",
+    "section": "5. From the Logit Model to Probability",
+    "text": "5. From the Logit Model to Probability\nThe equation above can be rearranged to obtain the probability itself:\n\\[\np=\n\\frac{1}{1+\\exp[-(\\beta_0+\\beta_1X_1+\\cdots+\\beta_kX_k)]}\n\\]\nThis is called the logistic function.\nIt maps any value on the real number line into a value between 0 and 1:\n\\[\n-\\infty\n\\quad\\longrightarrow\\quad\n0\n\\]\nand\n\\[\n+\\infty\n\\quad\\longrightarrow\\quad\n1\n\\]\nTherefore, the logit and logistic functions are inverse transformations:\n\\[\n\\boxed{\n\\operatorname{logit}(p)=\\ln\\left(\\frac{p}{1-p}\\right)\n}\n\\]\nand\n\\[\n\\boxed{\np=\\frac{1}{1+e^{-X\\beta}}\n}\n\\]\nThis is why a logit model can describe probabilities without predicting impossible values such as 1.2 or -0.3."
+  },
+  {
+    "objectID": "blog/posts/post1/Untitled.html#logit-regression-estimating-the-model",
+    "href": "blog/posts/post1/Untitled.html#logit-regression-estimating-the-model",
+    "title": "My First Blog Post: Understanding Logit",
+    "section": "6. Logit Regression: Estimating the Model",
+    "text": "6. Logit Regression: Estimating the Model\nIt is important to distinguish the logit model from logit regression.\nThe logit model tells us what relationship we assume exists:\n\\[\n\\operatorname{logit}(p)=X\\beta\n\\]\nBut the coefficients \\(\\beta\\) are unknown. Logit regression is the procedure we use to estimate these coefficients from observed data.\nFor example, suppose we want to predict whether a person votes for a political party based on age, income, and education:\n\\[\n\\operatorname{logit}(p_i)\n=\n\\beta_0\n+\\beta_1 Age_i\n+\\beta_2 Income_i\n+\\beta_3 Education_i\n\\]\nUsing a dataset of voters, logit regression estimates:\n\\[\n\\hat{\\beta}_0,\\hat{\\beta}_1,\\hat{\\beta}_2,\\hat{\\beta}_3\n\\]\nThe estimates are typically obtained using Maximum Likelihood Estimation (MLE) rather than ordinary least squares.\nTherefore, the three concepts can be summarized as follows:\n\nLogit function: transforms probability into log-odds.\nLogit model: assumes log-odds are a linear function of explanatory variables.\nLogit regression: uses observed data to estimate the coefficients of the model."
+  },
+  {
+    "objectID": "blog/posts/post1/Untitled.html#applications-in-microeconomics-discrete-choice",
+    "href": "blog/posts/post1/Untitled.html#applications-in-microeconomics-discrete-choice",
+    "title": "My First Blog Post: Understanding Logit",
+    "section": "7. Applications in Microeconomics: Discrete Choice",
+    "text": "7. Applications in Microeconomics: Discrete Choice\nThe logit becomes especially useful when consumers make discrete choices.\nIn traditional microeconomics, consumers may choose a continuous quantity, such as how many apples to buy. In real markets, however, consumers often choose one option from several alternatives: one car, one airline, or one breakfast cereal.\nEconomists can represent this using a Random Utility Model:\n\\[\nU_{ij}=\\delta_j+\\varepsilon_{ij}\n\\]\nwhere \\(\\delta_j\\) represents the average utility of product \\(j\\), while \\(\\varepsilon_{ij}\\) captures individual-specific taste differences.\nIf the random component follows a Type I Extreme Value distribution, the probability that consumer \\(i\\) chooses product \\(j\\) becomes:\n\\[\ns_j=P_{ij}\n=\n\\frac{\\exp(\\delta_j)}\n{\\sum_{k=0}^{J}\\exp(\\delta_k)}\n\\]\nThis is the simple logit model."
+  },
+  {
+    "objectID": "blog/posts/post1/Untitled.html#the-unintuitive-part-the-red-bus-blue-bus-problem",
+    "href": "blog/posts/post1/Untitled.html#the-unintuitive-part-the-red-bus-blue-bus-problem",
+    "title": "My First Blog Post: Understanding Logit",
+    "section": "8. The Unintuitive Part: The Red Bus / Blue Bus Problem",
+    "text": "8. The Unintuitive Part: The Red Bus / Blue Bus Problem\nDespite its mathematical beauty, Simple Logit suffers from a major flaw known as IIA.\nConsider the ratio of market shares between any two products \\(j\\) and \\(k\\):\n\\[\\frac{s_j}{s_k} = \\frac{\\exp(\\delta_j)}{\\exp(\\delta_k)}\\]\nNotice that this ratio depends only on products \\(j\\) and \\(k\\), completely unaffected by any third option in the market.\nSuppose commuters can choose between:\n\nCar: 50%\nRed Bus: 50%\n\nNow suppose a new Blue Bus is introduced. The Blue Bus is almost identical to the Red Bus.\nThe simple logit model predicts that the three options become approximately:\n\\[\n\\text{Car}=33.3\\%,\\qquad\n\\text{Red Bus}=33.3\\%,\\qquad\n\\text{Blue Bus}=33.3\\%\n\\]\nThis is unintuitive. Since Blue Bus is almost identical to Red Bus, we would expect it to take mostly passengers away from Red Bus rather than equally reducing the probability of choosing a car.\nThe problem comes from the logit’s assumption that the relative odds between two alternatives do not depend on a third alternative.\nThis example shows that a model can be mathematically elegant while still making unrealistic behavioral assumptions."
+  },
+  {
+    "objectID": "blog/posts/post1/Untitled.html#a-better-model-nested-logit",
+    "href": "blog/posts/post1/Untitled.html#a-better-model-nested-logit",
+    "title": "My First Blog Post: Understanding Logit",
+    "section": "9. A Better Model: Nested Logit",
+    "text": "9. A Better Model: Nested Logit\nTo fix IIA without losing model tractability, the Nested Logit Model groups similar products into “nests” \\(g \\in \\{1, \\dots, G\\}\\) (e.g., placing Red Bus and Blue Bus together in a “Bus” nest).\nTaste shocks \\(\\varepsilon_{ij}\\) are allowed to be correlated within the same nest, governed by the nesting parameter \\(\\lambda \\in (0, 1]\\): * \\(\\lambda = 1\\): No correlation (collapses back to Simple Logit). * \\(\\lambda \\to 0\\): Strong correlation; products in the nest are near-perfect substitutes.\n\nThe Nested Logit Estimating Equation\nDecomposing choice into nest selection and within-nest product selection modifies our OLS regression equation by adding one extra regressor:\n\\[\\ln\\left(\\frac{s_j}{s_0}\\right) = \\mathbf{X}_j \\beta - \\alpha p_j + (1 - \\lambda) \\ln(s_{j|g})\\]\nWhere \\(s_{j|g} = \\frac{s_j}{\\sum_{k \\in g} s_k}\\) is product \\(j\\)’s market share within its own nest \\(g\\). The coefficient on \\(\\ln(s_{j|g})\\) directly estimates \\((1 - \\lambda)\\)."
+  },
+  {
+    "objectID": "blog/posts/post1/Untitled.html#takeaway",
+    "href": "blog/posts/post1/Untitled.html#takeaway",
+    "title": "My First Blog Post: Understanding Logit",
+    "section": "10. Takeaway",
+    "text": "10. Takeaway\nThe logit is more than just a formula. The logit function transforms probability into log-odds, making a bounded probability compatible with a linear specification. The logit model uses this transformation to describe binary or discrete choices, while logit regression estimates the model’s coefficients from data.\nThe same framework can be extended to consumer choice and other economic applications. However, the Red Bus / Blue Bus example reminds us that a convenient mathematical model may impose strong assumptions about how people substitute between alternatives."
   }
 ]
