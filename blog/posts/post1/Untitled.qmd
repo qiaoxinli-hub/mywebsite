@@ -1,6 +1,6 @@
 ---
-title: "My First Blog Post: Understanding Logit"
-date: 2026-09-14
+title: "First Blog Post: Understanding Logit"
+date: 2026-09-13
 categories:
   - Econometrics
   - Microeconomics
@@ -11,7 +11,7 @@ categories:
 
 ## 1. Introduction: Why Do We Need the Logit?
 
-In economics and data science, we often want to predict the probability of an event. For example, we may want to estimate the probability that a person votes for a certain political party, buys a product, or chooses one transportation option over another.
+In statistics, we often want to predict the probability of an event. For example, we may want to estimate the probability that a person votes for a certain political party, buys a product, or chooses one transportation option over another.
 
 At first, it seems natural to use a linear regression:
 
@@ -292,7 +292,8 @@ Taste shocks $\varepsilon_{ij}$ are allowed to be correlated within the same nes
 * $\lambda = 1$: No correlation (collapses back to Simple Logit).
 * $\lambda \to 0$: Strong correlation; products in the nest are near-perfect substitutes.
 
-### The Nested Logit Estimating Equation
+The Nested Logit Estimating Equation：
+
 Decomposing choice into nest selection and within-nest product selection modifies our OLS regression equation by adding **one extra regressor**:
 
 $$\ln\left(\frac{s_j}{s_0}\right) = \mathbf{X}_j \beta - \alpha p_j + (1 - \lambda) \ln(s_{j|g})$$

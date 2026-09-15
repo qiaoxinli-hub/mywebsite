@@ -6,9 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="dcterms.date" content="2026-09-14">
+<meta name="dcterms.date" content="2026-09-13">
 
-<title>My First Blog Post: Understanding Logit – Student Name</title>
+<title>First Blog Post: Understanding Logit – Student Name</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -155,7 +155,7 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">My First Blog Post: Understanding Logit</h1>
+<h1 class="title">First Blog Post: Understanding Logit</h1>
   <div class="quarto-categories">
     <div class="quarto-category">Econometrics</div>
     <div class="quarto-category">Microeconomics</div>
@@ -171,7 +171,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">September 14, 2026</p>
+      <p class="date">September 13, 2026</p>
     </div>
   </div>
   
@@ -186,7 +186,7 @@ window.Quarto = {
 <p><img src="figure1.png" class="img-fluid" width="500"></p>
 <section id="introduction-why-do-we-need-the-logit" class="level2">
 <h2 class="anchored" data-anchor-id="introduction-why-do-we-need-the-logit">1. Introduction: Why Do We Need the Logit?</h2>
-<p>In economics and data science, we often want to predict the probability of an event. For example, we may want to estimate the probability that a person votes for a certain political party, buys a product, or chooses one transportation option over another.</p>
+<p>In statistics, we often want to predict the probability of an event. For example, we may want to estimate the probability that a person votes for a certain political party, buys a product, or chooses one transportation option over another.</p>
 <p>At first, it seems natural to use a linear regression:</p>
 <p><span class="math display">\[
 P(Y=1|X)=\beta_0+\beta_1X
@@ -388,13 +388,11 @@ s_j=P_{ij}
 <h2 class="anchored" data-anchor-id="a-better-model-nested-logit">9. A Better Model: Nested Logit</h2>
 <p>To fix IIA without losing model tractability, the <strong>Nested Logit Model</strong> groups similar products into “nests” <span class="math inline">\(g \in \{1, \dots, G\}\)</span> (e.g., placing Red Bus and Blue Bus together in a “Bus” nest).</p>
 <p>Taste shocks <span class="math inline">\(\varepsilon_{ij}\)</span> are allowed to be correlated within the same nest, governed by the <strong>nesting parameter</strong> <span class="math inline">\(\lambda \in (0, 1]\)</span>: * <span class="math inline">\(\lambda = 1\)</span>: No correlation (collapses back to Simple Logit). * <span class="math inline">\(\lambda \to 0\)</span>: Strong correlation; products in the nest are near-perfect substitutes.</p>
-<section id="the-nested-logit-estimating-equation" class="level3">
-<h3 class="anchored" data-anchor-id="the-nested-logit-estimating-equation">The Nested Logit Estimating Equation</h3>
+<p>The Nested Logit Estimating Equation：</p>
 <p>Decomposing choice into nest selection and within-nest product selection modifies our OLS regression equation by adding <strong>one extra regressor</strong>:</p>
 <p><span class="math display">\[\ln\left(\frac{s_j}{s_0}\right) = \mathbf{X}_j \beta - \alpha p_j + (1 - \lambda) \ln(s_{j|g})\]</span></p>
 <p>Where <span class="math inline">\(s_{j|g} = \frac{s_j}{\sum_{k \in g} s_k}\)</span> is product <span class="math inline">\(j\)</span>’s market share <em>within</em> its own nest <span class="math inline">\(g\)</span>. The coefficient on <span class="math inline">\(\ln(s_{j|g})\)</span> directly estimates <span class="math inline">\((1 - \lambda)\)</span>.</p>
 <hr>
-</section>
 </section>
 <section id="takeaway" class="level2">
 <h2 class="anchored" data-anchor-id="takeaway">10. Takeaway</h2>
