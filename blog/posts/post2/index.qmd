@@ -7,6 +7,10 @@ categories:
   - Philadelphia
 ---
 
+
+
+
+
 ## 1. Question and Motivation
 
 Fall is easily one of the most vibrant seasons in Philadelphia. Between live music, theater productions, game days, and street festivals, the city is packed with things to do. For locals and visitors looking to fill a weekend, the challenge is often deciding where to go. For event organizers, the questions are different: **How crowded is the event market? Which types of events are most common? When are the busiest days? And which kinds of events attract more user interest?**
