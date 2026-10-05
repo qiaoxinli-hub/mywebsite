@@ -155,28 +155,38 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="how-has-the-u.s.-labor-market-changed-over-the-past-40-years" class="level2">
-<h2 class="anchored" data-anchor-id="how-has-the-u.s.-labor-market-changed-over-the-past-40-years">1. How Has the U.S. Labor Market Changed Over the Past 40 Years?</h2>
-<p>The U.S. labor market has changed substantially over the past four decades. Some types of occupations have become much more common, while others have become less common. At the same time, real wages have not changed in the same way across different types of work.</p>
-<p>In this post, I ask:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="frontpage.jpg" class="img-fluid figure-img" width="900"></p>
+<figcaption>frontpage</figcaption>
+</figure>
+</div>
+<section id="question-and-motivation" class="level2">
+<h2 class="anchored" data-anchor-id="question-and-motivation">1. Question and Motivation</h2>
+<p>The U.S. labor market looks very different from it did in the 1980s. Some types of jobs have become much more common, while others have become less common. Wages have also changed differently across occupations.</p>
+<p>This leads to my question:</p>
 <blockquote class="blockquote">
 <p><strong>How has the occupational structure of the U.S. labor market changed since the 1980s, and how have real wages evolved across different types of occupations?</strong></p>
 </blockquote>
-<p>This question is useful because changes in employment shares can show how the structure of the labor market is changing. Looking at wages at the same time also helps us understand whether changes in the demand for different types of work have been associated with different patterns of earnings growth.</p>
+<p>To solve this problem, I focus on 4 types of occupations based on the tasks workers perform in this project: <strong>Non-Routine Cognitive, Routine Cognitive, Routine Manual, and Non-Routine Manual</strong>. I use descriptive statistics and visualizations to compare employment shares and real wages from 1983 to 2023.</p>
 </section>
-<section id="data" class="level2">
-<h2 class="anchored" data-anchor-id="data">2. Data</h2>
-<p>I use microdata from the <strong>IPUMS Current Population Survey (CPS)</strong> from 1983 to 2023. The CPS contains a wide range of information on employment, occupations, income, education, and demographic characteristics.</p>
-<p>To study changes in the occupational structure of the labor market, I focus on <strong>employed workers ages 25–64</strong>. This age range helps reduce the influence of workers who are still in school or close to retirement.</p>
-<p>For wages, I use reported <strong>annual wage income</strong> and adjust it for inflation using the <strong>CPI-U</strong>, so that all wages are expressed in <strong>2023 dollars</strong>. I then calculate the <strong>weighted median real wage</strong> for each occupational group and year.</p>
-<p>Because the CPS is a survey, I use the <strong>ASEC sampling weight (ASECWT)</strong> when calculating employment shares and median wage statistics. This allows the results to better represent the U.S. population covered by the survey rather than simply reflecting the number of observations in my sample.</p>
+<section id="data-processing" class="level2">
+<h2 class="anchored" data-anchor-id="data-processing">2. Data Processing</h2>
+<p>I use microdata from the <strong>IPUMS Current Population Survey (CPS)</strong> from 1983 to 2023. The CPS provides information on employment, occupations, income, and other characteristics of U.S. workers.</p>
+<p>To study changes in the occupational structure of the labor market, I focus on <strong>employed workers ages 25–64</strong>. This helps me focus on people who are more likely to be in the working-age population and reduces the influence of people who are still in school or close to retirement.</p>
+<p>For wages, I use reported <code>annual wage income</code> and adjust it for inflation using the <code>CPI-U</code>, so that all wages are expressed in <code>2023 dollars</code>. I then calculate the <code>weighted median real wage</code> for each occupational group and year.</p>
+<p>Because the CPS is a survey, I use the ASEC sampling weight (<code>ASECWT</code>) when calculating employment shares and median wage statistics. This allows the results to better represent the U.S. population covered by the survey rather than simply reflecting the number of observations in my sample.</p>
 </section>
 <section id="the-standard-task-based-model" class="level2">
-<h2 class="anchored" data-anchor-id="the-standard-task-based-model">3. The Standard Task-Based Model</h2>
-<p>To understand these changes, I use the <strong>standard task-based model(Autor, Levy, and Murnane 2003)</strong>, a classic framework in labor economics. Instead of dividing workers into broad categories such as “high-skill” and “low-skill” based mainly on education or income, the task-based approach focuses on the <strong>tasks that workers actually perform</strong>.</p>
-<p>The key idea is that an occupation can be viewed as a <strong>bundle of tasks</strong>, and production depends on combining different types of tasks. These tasks can be classified along two dimensions. The first is whether the work is mainly <strong>cognitive or manual</strong>, and the second is whether the tasks are <strong>routine or non-routine</strong>.</p>
-<p>The cognitive/manual dimension captures whether a job relies mainly on problem-solving, judgment, and information processing or on physical and manual activities. The routine/non-routine dimension captures whether tasks are repetitive and can be clearly specified by rules and procedures, or whether they require flexibility and are more difficult to codify and automate.</p>
-<p>Using the IPUMS <strong>OCC1990 occupation classification</strong>, I group occupations into four task categories: <strong>Non-Routine Cognitive</strong>, <strong>Routine Cognitive</strong>, <strong>Routine Manual</strong>, and <strong>Non-Routine Manual</strong>. The detailed occupation mapping and sample construction are described in the accompanying code.</p>
+<h2 class="anchored" data-anchor-id="the-standard-task-based-model">3. The Standard Task-based Model</h2>
+<p>To organize occupations, I use the <code>standard task-based model(Autor, Levy, and Murnane 2003)</code>, a classic framework in labor economics.</p>
+<p>The basic idea is simple: instead of thinking about jobs only as “high-skill” or “low-skill,” we can think about the different tasks that workers perform. The key idea is that an occupation can be viewed as a <strong>bundle of tasks</strong>, and production depends on combining different types of tasks.</p>
+<p>These tasks can be classified along two dimensions. The first is whether the work is mainly <strong>cognitive or manual</strong>, and the second is whether the tasks are <strong>routine or non-routine</strong>.</p>
+<p>The <strong>cognitive or manual</strong> dimension captures whether a job relies mainly on problem-solving, judgment, and information processing or on physical and manual activities.</p>
+<p>The <strong>routine or non-routine</strong> dimension captures whether tasks are repetitive and can be clearly specified by rules and procedures, or whether they require flexibility and are more difficult to codify and automate.</p>
+<p>Using the IPUMS <code>OCC1990 occupation classification</code>, I group occupations into four task categories: <strong>Non-Routine Cognitive</strong>, <strong>Routine Cognitive</strong>, <strong>Routine Manual</strong>, and <strong>Non-Routine Manual</strong>. The detailed occupation mapping and sample construction are described in the accompanying code.</p>
+<section id="four-types-of-occupations-based-on-tasks" class="level3">
+<h3 class="anchored" data-anchor-id="four-types-of-occupations-based-on-tasks">3.1 Four Types of Occupations Based on Tasks</h3>
 <table class="caption-top table">
 <colgroup>
 <col style="width: 25%">
@@ -220,10 +230,12 @@ ul.task-list li input[type="checkbox"] {
 </tbody>
 </table>
 </section>
+</section>
 <section id="data-descriptive-analysis" class="level2">
-<h2 class="anchored" data-anchor-id="data-descriptive-analysis">Data Descriptive Analysis</h2>
-<p><strong>(a) Employment Share</strong></p>
-<p>The employment structure of the U.S. labor market changed substantially between 1983 and 2023. The below table shows the employment share of each occupational group at five-year intervals.</p>
+<h2 class="anchored" data-anchor-id="data-descriptive-analysis">4. Data Descriptive Analysis</h2>
+<section id="a-employment-share" class="level3">
+<h3 class="anchored" data-anchor-id="a-employment-share">(a) Employment Share</h3>
+<p>The table below shows the employment share of each occupational group at five-year intervals.</p>
 <table class="caption-top table">
 <colgroup>
 <col style="width: 15%">
@@ -307,11 +319,10 @@ ul.task-list li input[type="checkbox"] {
 </tr>
 </tbody>
 </table>
-<p>The clearest pattern is the steady increase in the share of <strong>Non-Routine Cognitive occupations</strong>. Their share rose <strong>from 31.8% in 1983 to 47.8% in 2023</strong>, an increase of 16.0 percentage points. By 2023, nearly half of employment was in this occupational group.</p>
-<p>In contrast, both <strong>Routine Cognitive</strong> and <strong>Routine Manual</strong> occupations became less common over the same period. The share of <strong>Routine Cognitive</strong> employment fell <strong>from 27.7% to 19.6%</strong>, a decline of 8.1 percentage points. The share of <strong>Routine Manual</strong> employment fell even more, from <strong>29.0% in 1983 to 19.8% in 2023</strong>, a decline of 9.2 percentage points.</p>
-<p>The <strong>Non-Routine Manual</strong> group followed a different pattern. Its employment share increased gradually <strong>from 11.4% in 1983 to a peak of 14.8% in 2013, before declining to 12.8% in 2023</strong>. This suggests that, unlike the other three groups, its long-run change was not a simple upward or downward trend.</p>
-<p><strong>(b) Median Real Wage by Occupational Group</strong></p>
-<p>The table below shows the median real wage of each occupational group at five-year intervals from 1983 to 2023.</p>
+</section>
+<section id="b-median-real-wage-by-occupational-group" class="level3">
+<h3 class="anchored" data-anchor-id="b-median-real-wage-by-occupational-group">(b) Median Real Wage by Occupational Group</h3>
+<p>The table below shows the weighted median real wage at five-year intervals. All values are in 2023 dollars.</p>
 <table class="caption-top table">
 <colgroup>
 <col style="width: 15%">
@@ -395,14 +406,10 @@ ul.task-list li input[type="checkbox"] {
 </tr>
 </tbody>
 </table>
-<p>The clearest pattern is that <strong>Non-Routine Cognitive occupations consistently had the highest median real wages</strong> throughout the period. Their median real wage increased from <strong>$62,715 in 1983 to $75,000 in 2023</strong>, an increase of $12,285. Although wages fluctuated somewhat during the period, they remained substantially higher than those of the other three occupational groups.</p>
-<p>The <strong>Routine Cognitive</strong> group also experienced an overall increase in real wages. Its median real wage rose <strong>from $39,770 in 1983 to $46,000 in 2023</strong>. The increase was relatively gradual, although wages fluctuated slightly after 2003.</p>
-<p>The <strong>Routine Manual</strong> group showed a different pattern. Its median real wage was <strong>$48,948 in 1983 and $48,000 in 2023</strong>, indicating little overall growth over the four decades. Wages reached $51,513 in 1988 before declining and then fluctuating around $46,000–$50,000 in later years.</p>
-<p>The <strong>Non-Routine Manual</strong> group had the lowest median real wage throughout the period, but it experienced substantial growth. Its median real wage increased <strong>from $24,474 in 1983 to $35,000 in 2023</strong>, with most of the increase occurring between the 1990s and 2000s. Despite this growth, its median real wage remained below that of the other occupational groups in 2023.</p>
-<p>Overall, the wage data show that real wage growth was not uniform across occupational groups. Non-Routine Cognitive occupations maintained the highest wage levels, while Non-Routine Manual occupations experienced the largest proportional increase over the period. Routine Manual occupations, in contrast, showed relatively limited long-run wage growth.</p>
+</section>
 </section>
 <section id="data-visualization" class="level2">
-<h2 class="anchored" data-anchor-id="data-visualization">Data Visualization</h2>
+<h2 class="anchored" data-anchor-id="data-visualization">5. Data Visualization</h2>
 <p><strong>(1) The occupational structure has shifted toward non-routine cognitive work</strong></p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -417,10 +424,11 @@ ul.task-list li input[type="checkbox"] {
 </figure>
 </div>
 <p>Figure 1 and Figure 2 shows the employment share of the four occupational groups from 1983 to 2023.</p>
-<p>The most striking change is the rise in Non-Routine Cognitive employment. Its share increased from roughly one-third of employment in 1983 to almost one-half by 2023. At the same time, both Routine Cognitive and Routine Manual jobs became a smaller share of total employment.</p>
-<p>The Routine Cognitive share fell gradually over the period, while the Routine Manual share also declined, particularly after the early 2000s. In contrast, Non-Routine Manual employment remained relatively stable for much of the period and increased somewhat around the late 2000s and early 2010s before declining slightly toward 2023.</p>
+<p><strong>Non-Routine Cognitive</strong> employment increased steadily, from about one-third of employment in 1983 to almost one-half in 2023.</p>
+<p>At the same time, both <strong>Routine Cognitive</strong> and <strong>Routine Manual</strong> jobs became a smaller share of total employment.</p>
+<p>In contrast, <strong>Non-Routine Manual</strong> employment remained relatively stable for much of the period and increased somewhat around the late 2000s and early 2010s before declining slightly toward 2023.</p>
 <p>Overall, the figure suggests a long-run shift in the composition of employment. The U.S. labor market has become increasingly concentrated in non-routine cognitive occupations, while routine forms of cognitive and manual work have become relatively less common.</p>
-<p>This pattern is closely related to the waves of technological change over the past four decades, especially the rapid development of information technology and more specifically, artificial intelligence. New technologies have increasingly automated routine tasks while creating greater demand for workers who perform analytical and other non-routine cognitive tasks.</p>
+<p>Technology is one possible explanation for this pattern because computers, especially artificial intelligence, can replace some routine tasks while complementing work that involves problem-solving and judgment.</p>
 <p><strong>(2) Wage growth has differed substantially across occupational groups</strong></p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -428,10 +436,10 @@ ul.task-list li input[type="checkbox"] {
 <figcaption>Figure3</figcaption>
 </figure>
 </div>
-<p>Changes in employment shares do not necessarily tell us how workers in these occupations have been doing financially. Figure 3 therefore compares the cumulative growth in the real median annual wage, with each occupational group normalized to 100 in 1983. The wage measure is adjusted for inflation using CPI-U and expressed in 2023 dollars.</p>
-<p>The results show substantial differences across occupational groups. The <strong>Non-Routine Manual group</strong> has the largest cumulative real wage growth over the period, reaching roughly <strong>143</strong> relative to its 1983’s 100. One possible explanation is that many occupations in this group are concentrated in the service sector, which has expanded substantially over the past several decades.</p>
+<p>Figure 3 compares the cumulative growth in the real median annual wage, with each group normalized to <strong>100 in 1983</strong>. Also, the wage measure is adjusted for inflation using CPI-U and expressed <strong>in 2023 dollars</strong>.</p>
+<p>The largest increase is in <strong>Non-Routine Manual</strong> occupations, reaching roughly <strong>143</strong> relative to its 1983’s 100. One possible explanation is that many occupations in this group are concentrated in the service sector, which has expanded substantially over the past several decades.</p>
 <p><strong>Non-Routine Cognitive</strong> wages also increased substantially, reaching around <strong>120</strong>. <strong>Routine Cognitive</strong> wages rose more moderately, to around <strong>115</strong>.</p>
-<p>The most different pattern appears for <strong>Routine Manual</strong> occupations. Their real median wage fluctuated considerably over the period and ended close to, or <strong>slightly below, their 1983 level</strong>. This pattern may be related to technological change, as routine manual tasks are often easier to automate or replace with technology. At the same time, globalization and changes in the demand for different types of labor may have also contributed to the relatively weak wage growth in these occupations.</p>
+<p><strong>Routine Manual</strong> occupations show a very different pattern. Their real median wage fluctuated considerably over the period and ended <strong>slightly below their 1983 level</strong>. This pattern may be related to technological change, as routine manual tasks are often easier to automate or replace with technology. At the same time, globalization and changes in the demand for different types of labor may have also contributed to the relatively weak wage growth in these occupations.</p>
 <p>This is an important result because it shows that employment growth and wage growth do not move together in a simple way. Non-Routine Cognitive employment expanded the most in terms of employment share, but Non-Routine Manual occupations experienced the largest cumulative real wage growth in this comparison.</p>
 <p>The shaded recession periods also show that wage trends can fluctuate around major economic downturns. However, the long-run differences between occupational groups are more important than any single short-term movement.</p>
 <p><strong>(3) What do these changes look like in actual wage levels?</strong></p>
@@ -441,11 +449,22 @@ ul.task-list li input[type="checkbox"] {
 <figcaption>Figure4</figcaption>
 </figure>
 </div>
-<p>The previous figure focuses on wage growth relative to 1983. This is useful for comparing how quickly wages changed across occupational groups, but an index does not show the actual level of earnings.</p>
-<p>Figure 4 therefore compares the real median annual wage in 1983 and 2023 directly using a dumbbell plot. The left point represents the 1983 wage, while the right point represents the 2023 wage. The connecting line shows the change over the 40-year period, and the percentage next to the 2023 point shows the cumulative real wage growth. The figure uses the same weighted median real wage measure as the previous analysis.</p>
-<p>The comparison reveals clear differences in both wage levels and wage growth. <strong>Non-Routine Cognitive occupations had the highest median real wage in both years</strong>, increasing from $62,715 in 1983 to $75,000 in 2023, or 19.6% in real terms. <strong>Routine Cognitive</strong> wages also increased, from $39,770 to $46,000, a 15.7% increase. In contrast, <strong>Routine Manual</strong> wages changed very little, declining slightly from $48,948 to $48,000, or 1.9%.</p>
-<p>The <strong>Non-Routine Manual group shows the largest proportional increase</strong>, with median real wages rising from $24,474 to $35,000, a 43.0% increase. However, it still had the lowest median wage level in 2023. This highlights an important distinction: a group can experience relatively strong wage growth while starting from a lower wage level and still earning less than other groups.</p>
+<p>The previous figure 3 focuses on wage growth relative to 1983. It is useful for comparing how quickly wages changed across occupational groups, but it doesn’t show the actual level of earnings.</p>
+<p>Figure 4 compares the actual median real wage in 1983 and 2023. The left point shows the 1983 wage, while the right point shows the 2023 wage. The connecting line shows the change over the 40-year period, and the percentage next to the 2023 point shows the cumulative real wage growth. The figure uses the same weighted median real wage measure as the previous analysis.</p>
+<p>The comparison reveals clear differences in both wage levels and wage growth:</p>
+<p><strong>Non-Routine Cognitive</strong> occupations had the highest median real wage in both years, increasing from <strong>$62,715 in 1983 to $75,000 in 2023</strong>, a 19.6% increase.</p>
+<p><strong>Routine Cognitive</strong> wages also increased, from <strong>$39,770 to $46,000</strong>, a 15.7% increase.</p>
+<p>In contrast, <strong>Routine Manual</strong> wages changed very little, declining slightly from <strong>$48,948 to $48,000</strong>, a decline of about 1.9%.</p>
+<p><strong>Non-Routine Manual</strong> group shows the largest proportional increase, with median real wages rising from $24,474 to $35,000, a 43.0% increase. However, it still had the lowest median wage level in 2023. This highlights an important distinction: a group can experience relatively strong wage growth while starting from a lower wage level and still earning less than other groups.</p>
 <p>Together, Figures 3 and 4 provide a more complete picture of wage inequality across occupations. Figure 3 shows how quickly wages changed relative to each group’s starting point, while Figure 4 shows the actual wage levels in 1983 and 2023. Looking at both measures helps distinguish between <strong>relative wage growth</strong> and <strong>absolute wage levels</strong>.</p>
+</section>
+<section id="what-do-these-results-tell-us" class="level2">
+<h2 class="anchored" data-anchor-id="what-do-these-results-tell-us">6. What Do These Results Tell Us?</h2>
+<p>The results point to three findings.</p>
+<p><strong>First, the composition of employment changed substantially.</strong> Over the past 40 years, the U.S. labor market has shifted strongly toward Non-Routine Cognitive occupations, while routine cognitive and routine manual work have become smaller parts of total employment.</p>
+<p><strong>Second, real wage growth differed across occupational groups.</strong> Non-Routine Cognitive occupations continued to have the highest wage levels, Non-Routine Manual occupations had the largest percentage increase, while Routine Manual occupations had almost no long-run growth.</p>
+<p><strong>Third, employment growth and wage growth were not the same thing.</strong> The occupation group that expanded the most was not the group with the largest proportional increase in wages.</p>
+<p>The main takeaway is that the U.S. labor market did not change in just one aspect. Both the types of jobs people do and the wages associated with those jobs have changed. Looking at both employment shares and wages gives a clearer picture of how the labor market has evolved since the 1980s.</p>
 
 
 </section>
