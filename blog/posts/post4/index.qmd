@@ -15,7 +15,7 @@ categories:
 ## 1. Question and Motivation
 
 
-Across the globe, women continue to face significant disadvantages in the labor market. They are disproportionately represented in lower-paying and informal jobs, earn less than men on average, and may face hiring barriers because employers expect them to take on greater childcare and household responsibilities. In some regions, social norms and other restrictions further limit women’s access to formal employment. As a result, women participate in the labor force at much lower rates than men. According to recent estimates from the International Labour Organization (ILO), the global **female labor force participation rate is about 47%**, compared with nearly **72% for men**.
+Across the globe, women continue to face significant disadvantages in the labor market. They are disproportionately represented in lower-paying and informal jobs, earn less than men on average, and may face hiring barriers because employers expect them to take on greater childcare and household responsibilities. In some regions, social norms and other restrictions further limit women’s access to formal employment. As a result, women participate in the labor force at much lower rates than men. **According to recent estimates from the International Labour Organization (ILO), the global female labor force participation rate is about 47%, compared with nearly 72% for men.**
 
 At the same time, advanced economies generally have higher female labor force participation, stronger legal protections, and smaller gender disparities than many developing countries. This raises an important question:
 
@@ -94,7 +94,7 @@ The visualization highlights two key findings:
 
 **First, there is a negative association between GDP per capita and the gender gap.** Higher-income countries tend to have smaller differences between male and female labor force participation. For example, countries such as **Norway, Denmark, Luxembourg, and Switzerland** are concentrated in the lower-right part of the figure, with gaps **below 10 percentage points**.
 
-2. Second, the relationship is much less clear among lower-income countries. For countries with GDP per capita **below roughly $20,000 PPP**, the gender gap varies widely, from close to zero to more than 50 percentage points. Countries such as **Afghanistan, Iraq, and Iran** have very large gaps, while some poorer countries, including **Burundi and Moldova** in this sample, have much smaller gaps.
+**Second, the relationship is much less clear among lower-income countries.** For countries with GDP per capita below roughly $20,000 PPP, the gender gap varies widely, from close to zero to more than 50 percentage points. Countries such as **Afghanistan, Iraq, and Iran** have very large gaps, while some poorer countries, including **Burundi and Moldova** in this sample, have much smaller gaps.
 
 These differences highlight an important point behind the U-shaped hypothesis. **A low gender gap does not necessarily mean that women have greater economic opportunities.** In poorer, largely agricultural economies, women may participate in the labor market because household income is low and family labor is necessary for survival. Much of this work can also take place in agriculture or the informal sector. By contrast, in some countries, social norms, legal restrictions and traditional expectations about women's roles can substantially reduce female labor force participation.
 
