@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.38">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="dcterms.date" content="2026-10-18">
+
+<title>Do Places with Higher Employment Ratios Also Have Higher Household Incomes? – Student Name</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../../">
+<script src="../../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../../site_libs/bootstrap/bootstrap-6b423f165eeea3787de40cb4f8e821c3.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="../../../styles.css">
+</head>
+
+<body class="nav-fixed fullcontent quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../../../index.html">
+    <span class="navbar-title">Student Name</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../../index.html"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../bio.html"> 
+<span class="menu-text">About Me</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../resume.html"> 
+<span class="menu-text">Resume</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../blog/index.html"> 
+<span class="menu-text">Blog</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Do Places with Higher Employment Ratios Also Have Higher Household Incomes?</h1>
+<p class="subtitle lead">A U.S. Comparison Across States and Counties, 2020–2024</p>
+  <div class="quarto-categories">
+    <div class="quarto-category">Data Visualization</div>
+    <div class="quarto-category">GIS</div>
+    <div class="quarto-category">Labor Economics</div>
+    <div class="quarto-category">Regional disparities</div>
+  </div>
+  </div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">October 18, 2026</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="frontpage.jpg" class="img-fluid figure-img" width="800"></p>
+<figcaption>Frontpage</figcaption>
+</figure>
+</div>
+<section id="question-and-motivation" class="level2">
+<h2 class="anchored" data-anchor-id="question-and-motivation">1. Question and Motivation</h2>
+<p>Employment and income are two important indicators of local economic well-being, but they capture different aspects of economic conditions. In reality, while developed areas often have both high household incomes and high employment rates, a place may still have a high share of adults employed without necessarily offering high-paying jobs.</p>
+<p>This raises a natural question: <strong>Are places with higher employment-to-population ratios also more likely to have higher median household incomes? And how are these two measures distributed geographically across the United States?</strong></p>
+<p>To investigate this question, I examine state- and county-level data from the 2020–2024 American Community Survey (ACS) five-year estimates. I use GIS maps to identify regional patterns in household income and employment, then use scatterplots and correlation coefficients to assess the relationship between the two measures.</p>
+<p>By combining spatial visualization with descriptive statistical analysis, this post explores whether income and employment tend to move together across places and where their geographic patterns differ.</p>
+</section>
+<section id="data-and-methods" class="level2">
+<h2 class="anchored" data-anchor-id="data-and-methods">2. Data and Methods</h2>
+<section id="data-sources" class="level3">
+<h3 class="anchored" data-anchor-id="data-sources">Data Sources</h3>
+<p>I use the U.S. Census Bureau’s <strong>2020–2024 American Community Survey (ACS)</strong> five-year estimates and <strong>2024 TIGER/Line geographic boundaries</strong>. The ACS estimates were released on January 29, 2026, and are based on data collected over the five-year period from January 1, 2020, through December 31, 2024. They describe conditions over this period rather than annual changes between 2020 and 2024.</p>
+<p>The analysis covers the 50 states and Washington, DC, at the state level. At the county level, it uses 3,144 counties and county equivalents under the 2024 geographic definitions. One county-equivalent observation without a published income estimate is excluded from the county-level correlation analysis, leaving 3,143 observations with both measures available.</p>
+<p>The analysis focuses on two variables:</p>
+<ol type="1">
+<li><code>median household income</code>:</li>
+</ol>
+<p>Median household income comes from ACS Table <strong>B19013</strong> and is measured in 2024 inflation-adjusted dollars. It represents the income level at the midpoint of the household income distribution. It is not an arithmetic average or an individual worker’s wage.</p>
+<ol start="2" type="1">
+<li><code>civilian employment-to-population ratio for people age 16 and older</code>:</li>
+</ol>
+<p>The employment measure is the civilian employment-to-population ratio for people aged 16 and older. It is calculated as:</p>
+<p>{} ]</p>
+<p>The numerator is the number of employed civilians, and the denominator excludes Armed Forces personnel but includes civilians who are not in the labor force. This measure is therefore different from the unemployment rate, which uses the civilian labor force as its denominator.</p>
+<p>The underlying data come from ACS Tables <strong>B19013</strong> and <strong>B23025</strong>.</p>
+</section>
+<section id="data-processing-and-statistical-methods" class="level3">
+<h3 class="anchored" data-anchor-id="data-processing-and-statistical-methods">Data Processing and Statistical Methods</h3>
+<p>I combine the economic estimates with geographic boundary files using Census geographic identifiers (GEOIDs). Using standardized geographic identifiers rather than place names reduces the risk of incorrect matches. The data-processing script also checks for duplicate identifiers, missing estimates, and the expected number of geographic units before generating the maps.</p>
+<p>For the relationship between income and employment, I calculate two correlation coefficients at each geographic level:</p>
+<ol type="1">
+<li><p><code>Pearson's correlation coefficient</code> measures the strength and direction of a linear relationship between the two variables.</p></li>
+<li><p><code>Spearman's rank correlation coefficient</code> measures whether places with higher employment-to-population ratios also tend to rank higher in median household income.</p></li>
+</ol>
+<p>Each state or county is treated as one observation, regardless of its population size. The analysis is therefore an equally weighted comparison of geographic units, not a population-weighted estimate of the relationship experienced by individual residents.</p>
+<p>The scatterplots include fitted linear trend lines and conventional 95% confidence bands. These bands help visualize uncertainty around the fitted relationships, but they do not account for the sampling uncertainty of every ACS estimate or spatial dependence between neighboring areas. The correlations are descriptive statistics rather than causal estimates.</p>
+</section>
+</section>
+<section id="data-visualization" class="level2">
+<h2 class="anchored" data-anchor-id="data-visualization">3. Data Visualization</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="table.png" class="img-fluid figure-img" width="800"></p>
+<figcaption>Figure</figcaption>
+</figure>
+</div>
+<p>The ranking table offers a quick preview of the map patterns: Massachusetts, Maryland, and New Jersey lead the state income rankings, while Mississippi, West Virginia, and Louisiana are at the bottom. The employment rankings look different, with Utah, Nebraska, and North Dakota near the top.</p>
+<section id="median-household-income-by-state" class="level3">
+<h3 class="anchored" data-anchor-id="median-household-income-by-state">Median household income by state</h3>
+<p><img src="us_state_median_household_income.png" class="img-fluid" width="800" alt="Figure1"> The first map highlights a familiar U.S. pattern: high household incomes cluster in the Northeast and along the Pacific Coast, while many states with lower medians are in the South and parts of Appalachia. In the data used here, Massachusetts has the highest state median household income ($103,960), followed by Maryland ($103,678) and New Jersey ($103,556). Mississippi is lowest ($56,447), followed by West Virginia ($59,608) and Louisiana ($60,756).</p>
+<p>Why might these places look so different? Start with the jobs clustered around their biggest cities. The Boston area has universities, hospitals, life-science firms, and professional services, a mix reflected in Massachusetts’ annual economic analysis. New Jersey sits between the New York and Philadelphia job markets and has a mix of corporate, pharmaceutical, finance, and logistics jobs. Maryland is close to Washington, DC, where federal agencies, contractors, research institutions, and technology employers are important. California has several large job centers, including the Bay Area’s technology industry and the entertainment and professional-services sectors elsewhere in the state.</p>
+<p>The point is not just that these places have jobs; many have a particularly large concentration of jobs that pay well. Big cities bring employers, specialized workers, universities, and suppliers close together. That can help firms grow and make it easier for workers with specialized skills to find high-paying work. The maps fit this explanation, but they do not tell us exactly how much each industry contributes to household income.</p>
+<p>There is an important catch: high nominal income does not automatically mean a household can afford more. Housing and other living costs are especially high in some coastal job centers. The ACS income figures are adjusted for inflation over time, but not for differences in prices between states. The map shows where household incomes are high, not where each dollar necessarily goes the furthest.</p>
+<p>The lower-income pattern also needs care. The South is not one uniform economy, and its large cities can look very different from its rural counties. Still, the broader Appalachian region continues to have lower incomes than the country overall: the Appalachian Regional Commission reports a 2020–2024 median household income of $66,555, about 82% of the national median of $80,734 (ARC income and poverty overview). Long-running differences in industry mix, access to high-wage employers, educational opportunities, and economic diversification may all matter, but these maps alone cannot tell us which factor is most important.</p>
+</section>
+<section id="median-household-income-by-county" class="level3">
+<h3 class="anchored" data-anchor-id="median-household-income-by-county">Median household income by county</h3>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="us_county_median_household_income.png" class="img-fluid figure-img" width="800"></p>
+<figcaption>Figure2</figcaption>
+</figure>
+</div>
+<p>The county map makes the picture much less tidy. A state-level average can hide very different local economies, and the highest-income counties often sit near major employment centers rather than covering entire states.</p>
+<p>Several high-income counties appear around the San Francisco Bay Area, including Santa Clara and San Mateo counties. This is the heart of Silicon Valley, where technology and other high-wage jobs are unusually concentrated. The Bay Area’s regional planning agency reports that high-wage occupations—many of them in tech—have become increasingly concentrated in San Francisco and Silicon Valley (Bay Area jobs by wage level). This helps explain why household incomes in these counties stand out. It does not mean every resident works in tech, or that every household shares equally in the region’s prosperity.</p>
+<p>Loudoun County, Virginia, offers another example. Just outside Washington, DC, it is known for its “Data Center Alley.” The county says the growth of data centers has supported jobs in technology, construction, professional services, and security, alongside a broader economy that includes federal contracting, aerospace, health technology, and logistics (Loudoun County’s account of its data center industry). Proximity to the nation’s capital and a specialized technology infrastructure help make Loudoun different from a typical rural county.</p>
+<p>At the other end of the map, Owsley County, Kentucky, appears among the lowest-income counties in the data. Its location in Appalachia makes the broader regional income gap relevant context, but the map cannot diagnose the county’s economic history by itself. To explain a place like Owsley, we would need to look more closely at its industries, job access, education, demographics, and changes over time.</p>
+<p>The main lesson from the two income maps is simple: geography matters, but scale matters too. The state map reveals broad regional patterns; the county map shows how much local economies can differ inside the same state.</p>
+</section>
+<section id="civilian-employment-to-population-ratio-by-state" class="level3">
+<h3 class="anchored" data-anchor-id="civilian-employment-to-population-ratio-by-state">Civilian employment-to-population ratio by state</h3>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="us_state_employment_population_ratio.png" class="img-fluid figure-img" width="800"></p>
+<figcaption>Figure3</figcaption>
+</figure>
+</div>
+<p>Here the map starts to tell a different story. The Great Plains and Upper Midwest stand out, with high ratios in states such as Nebraska, North Dakota, South Dakota, Minnesota, and Iowa. Utah also ranks first in the supplied data at 67.07%, followed by Nebraska at 66.37% and North Dakota at 66.32%. At the lower end are West Virginia (50.83%), Mississippi (53.89%), and New Mexico (53.95%).</p>
+<p>A separate Bureau of Labor Statistics series points in a similar direction: in 2024, the West North Central division had an employment-to-population ratio of 64.5%, compared with 60.1% nationally (BLS state employment-to-population ratios). The BLS figures use annual averages, so they are not identical to this post’s ACS five-year estimates, but they support the broader regional pattern.</p>
+<p>Why can parts of the middle of the country have a high share of adults working without having the very highest household incomes? The first answer is simple: the two measures ask different questions. The employment ratio asks whether people have jobs, not how much those jobs pay. In the Great Plains and Upper Midwest, work spans agriculture, energy, manufacturing, transportation, health care, education, and local services. Those industries can support a high share of people in work, even if the region has fewer of the very highly paid jobs concentrated in places such as Silicon Valley or the Boston area. That is a plausible explanation for the pattern, not something these maps can prove on their own.</p>
+<p>The denominator matters too. The ratio includes civilians aged 16 and older who are not in the labor force, including retirees and students. So it reflects population composition as well as job availability. A place with more people in working ages may have a higher ratio than a place with more retirees, even if their unemployment rates are similar.</p>
+<p>It might be tempting to say people in the middle of the country simply “work harder,” but this measure cannot tell us that. It does not measure effort, hours worked, or work ethic. Looking at the local mix of jobs, age structure, and access to employment is a better starting point.</p>
+</section>
+<section id="civilian-employment-to-population-ratio-by-county" class="level3">
+<h3 class="anchored" data-anchor-id="civilian-employment-to-population-ratio-by-county">Civilian employment-to-population ratio by county</h3>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="us_county_employment_population_ratio.png" class="img-fluid figure-img" width="800"></p>
+<figcaption>Figure4</figcaption>
+</figure>
+</div>
+<p>At the county level, the employment map becomes patchier. Many counties in the central and northern parts of the country have relatively high ratios, while lower values appear in parts of the South and Appalachia. But there are exceptions in every broad region.</p>
+<p>The displayed county estimates also include some extreme values—for example, 82.4% for Aleutians West Census Area, Alaska, and 20.4% for Issaquena County, Mississippi. These figures are worth noticing, but not taking at face value as precise rankings. Smaller populations can produce less stable survey estimates, and local age structure can strongly affect the ratio. Looking at ACS margins of error and other demographic characteristics would be the next step before explaining why an individual county stands out.</p>
+</section>
+</section>
+<section id="do-income-and-employment-move-together" class="level2">
+<h2 class="anchored" data-anchor-id="do-income-and-employment-move-together">Do income and employment move together?</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="us_state_income_employment_scatter.png" class="img-fluid figure-img" width="800"></p>
+<figcaption>Figure5</figcaption>
+</figure>
+</div>
+<p>The scatterplot brings the two stories together. There is a clear upward trend: states with higher employment-to-population ratios generally have higher median household incomes, although the dots are spread out rather than falling neatly along a line.</p>
+<p>Across the 50 states, Pearson’s correlation is 0.59 and Spearman’s rank correlation is 0.58. Both indicate a moderate positive association. In plain English, states where a larger share of civilians aged 16 and older are employed tend to rank higher in household income too.</p>
+<p>But the exceptions are revealing. California has one of the highest household income medians, yet its employment ratio is not among the highest. Utah, in contrast, ranks first in employment ratio and also has a relatively high median income. One state can have a lot of high-paid jobs; another can have a high share of adults working. Those are related, but not identical, strengths.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="us_county_income_employment_scatter.png" class="img-fluid figure-img" width="800"></p>
+<figcaption>Figure6</figcaption>
+</figure>
+</div>
+<p>The county-level scatterplot also slopes upward. Among the 3,143 county and county-equivalent observations with both estimates, Pearson’s correlation is 0.66 and Spearman’s rank correlation is 0.71. The positive pattern persists at a finer geographic scale, but there is still substantial variation around the trend line. In other words, counties with higher employment ratios tend to rank higher in income, but knowing a county’s employment ratio does not tell us its income with much precision.</p>
+<p>The Spearman coefficient is a little higher than Pearson’s, suggesting that the ranking of counties by employment and income moves together somewhat more consistently than a straight-line relationship would imply. It does not mean that employment has a stronger causal effect at the county level. County and state correlations use different geographic units and sample sizes, and each place receives equal weight. A small rural county counts as much as a large metropolitan county.</p>
+<p>The scatterplots therefore support a broad conclusion, not a rule for every place. Employment is one part of household economic well-being, but it does not tell the whole story. Pay, working hours, the number of earners in a household, family size, and nonlabor income all affect median household income. Local industries, education, age structure, and housing costs add further layers.</p>
+</section>
+<section id="interpretation-and-takeaway" class="level2">
+<h2 class="anchored" data-anchor-id="interpretation-and-takeaway">Interpretation and takeaway</h2>
+<p>I began with a simple expectation: places where more people work should also be places where households earn more. The data partly support that idea. Both the state and county comparisons show a positive relationship between employment-to-population ratios and median household income.</p>
+<p>But the maps also show why the story is not that simple. High household incomes cluster around some of the country’s major high-wage job centers, including the Northeast, California’s Bay Area, and the Washington, DC, region. Meanwhile, high employment ratios appear in parts of the Great Plains and Upper Midwest, where having a job does not necessarily mean earning the same income as workers in high-wage metropolitan industries.</p>
+<p>That contrast is the most interesting finding. A high share of people working and a high level of household income are related, but they are not interchangeable measures of prosperity. To understand why a particular state or county stands out, we would need to look beyond the map at wages, industry mix, education, demographics, commuting patterns, and local prices.</p>
+<p>There are also limits to what this analysis can tell us. Median household income is adjusted for inflation, but not for differences in the cost of living across places. ACS five-year estimates pool responses collected over 2020–2024 and come with sampling uncertainty. The correlations do not incorporate each estimate’s margin of error, and neighboring places may share economic conditions. Finally, these are geographic averages, not data on individual workers or households. They cannot show that employment causes higher income or identify the effects of any single industry or policy.</p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p><img src="../../..\images/UniversityofPennsylvania_FullLogo_RGB.png" class="img-fluid" width="100"></p>
+</div>   
+    <div class="nav-footer-center">
+<p>© 2026 Student Name</p>
+</div>
+    <div class="nav-footer-right">
+      &nbsp;
+    </div>
+  </div>
+</footer>
+
+
+
+
+</body></html>
