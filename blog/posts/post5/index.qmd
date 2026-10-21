@@ -56,7 +56,7 @@ To evaluate how income and employment move together, I calculate two metrics at 
 
 * **Equal weighting:** Every state or county counts as one equal observation regardless of population size. A small rural county carries the same weight in the scatterplots as Los Angeles County.
 
-* ** Descriptive, not causal:** The scatterplots display linear trend lines with **95% confidence bands** to show general patterns. However, these bands do not account for ACS sampling errors or spatial spillover between neighboring counties. These correlations describe geographic patterns, **not** cause-and-effect relationships.
+* **Descriptive, not causal:** The scatterplots display linear trend lines with **95% confidence bands** to show general patterns. However, these bands do not account for ACS sampling errors or spatial spillover between neighboring counties. These correlations describe geographic patterns, **not** cause-and-effect relationships.
 
 ## 3. Data Visualization
 
@@ -69,7 +69,7 @@ The table below gives a quick overview of the state rankings. **Massachusetts, M
 ![ Figure1 ](us_state_median_household_income.png){width="1000px"} 
 The state-level graph highlights a familiar pattern in Us. household incomes tend to be higher in the Northeast and along the Pacific Coast, while many states with lower medians are in the South and parts of Appalachia. As it shown above, **Massachusetts** has the highest median household income in the data (\$103,960), followed by **Maryland** (\$103,678) and **New Jersey** (\$103,556). **Mississippi** is the lowest (\$56,447), followed by **West Virginia** (\$59,608) and **Louisiana** (\$60,756).
 
-Why do these places look so different? One place to start is the kinds of jobs clustered around their biggest cities. The Boston area has universities, hospitals, life-science firms, and professional services. New Jersey sits between the New York and Philadelphia job markets and has jobs in sectors such as pharmaceuticals, finance, logistics, and business services. Maryland benefits in part from its proximity to Washington, DC, where federal agencies, research institutions, and government contractors are important employers. California also has several large job centers, including the Bay Area's technology industry and the entertainment and professional-services sectors elsewhere in the state.
+Why do these places look so different? One place to start is the kinds of jobs clustered around their biggest cities. **The Boston area** has universities, hospitals, life-science firms, and professional services. **New Jersey** sits between the New York and Philadelphia job markets and has jobs in sectors such as pharmaceuticals, finance, logistics, and business services. **Maryland** benefits in part from its proximity to Washington, DC, where federal agencies, research institutions, and government contractors are important employers. **California** also has several large job centers, including the Bay Area's technology industry and the entertainment and professional-services sectors elsewhere in the state.
 
 These places do not just have jobs, many of them have a concentration of jobs that pay well. Big cities bring employers, workers and universities close together. That can help specialized industries grow and give some workers access to higher-paying positions. Still, the map can't tell us how much each industry contributes to household income. It also does not account for differences in housing and other living costs, which can be especially high in coastal job centers. 
 
@@ -79,11 +79,11 @@ These places do not just have jobs, many of them have a concentration of jobs th
 
 The county map adds another important detail. The average for the whole state can hide big differences between local economies, and the highest-income counties often sit near major employment centers rather than covering entire states.
 
-There are several high-income counties around the San Francisco Bay Area, including Santa Clara and San Mateo. These counties are part of Silicon Valley, where technology firms and other high-wage industries are concentrated. This explains why household incomes in these counties stand out.
+There are several high-income counties around **the San Francisco Bay Area, including Santa Clara and San Mateo**. These counties are part of Silicon Valley, where technology firms and other high-wage industries are concentrated. This explains why household incomes in these counties stand out.
 
-Loudoun County, Virginia, is another example of this.Located near Washington, DC, it is known for its large data-center industry. The rapid growth of these data centers has supported jobs in technology, construction, and security, as well as other areas of the economy, such as federal contracting, aerospace, and health technology. Proximity to the nation's capital and a specialized technology infrastructure help make Loudoun different from a typical rural county.
+**Loudoun County, Virginia**, is another example of this.**Located near Washington, DC**, it is known for its large data-center industry. The rapid growth of these data centers has supported jobs in technology, construction, and security, as well as other areas of the economy, such as federal contracting, aerospace, and health technology. Proximity to the nation's capital and a specialized technology infrastructure help make Loudoun different from a typical rural county.
 
-At the other end of the map, Owsley County, Kentucky, has some of the lowest incomes in the data. Its location in Appalachia is important information, but the map can't explain the county's economic history on its own. To explain a place like Owsley, we would need to look more closely at the different types of jobs there, how easy it is to find a job, what the schools are like, who the people there are, and how things have changed over time.
+At the other end of the map, **Owsley County, Kentucky**, has some of the lowest incomes in the data. Its **location in Appalachia** is important information, but the map can't explain the county's economic history on its own. To explain a place like Owsley, we would need to look more closely at the different types of jobs there, how easy it is to find a job, what the schools are like, who the people there are, and how things have changed over time.
 
 
 ### Civilian employment-to-population ratio by state
@@ -110,15 +110,15 @@ The map also includes some extreme estimates. For example, the displayed ratio i
 
 The state-level scatterplot brings the two maps together. There is a clear upward trend: states with higher employment-to-population ratios generally have higher median household incomes, although the dots are spread out rather than falling neatly along a line.
 
-Across the 50 states, Pearson's correlation is 0.59 and Spearman's rank correlation is 0.58. Both indicate a moderate positive association. In plain English, states where a larger share of civilians aged 16 and older are employed tend to rank higher in household income too.
+**Across the 50 states, Pearson's correlation is 0.59 and Spearman's rank correlation is 0.58.** Both indicate a moderate positive association. In plain English, states where a larger share of civilians aged 16 and older are employed tend to rank higher in household income too.
 
 But there are some exceptions. **California** has one of the highest household income medians, yet its employment ratio is not among the highest. **Utah**, in contrast, ranks first in employment ratio and also has a relatively high median income. It shows that a place can have a high share of people working without having the very highest household income, and it can have high household incomes without ranking at the top in employment. Those are related, but not identical.
 
 ![Figure6](us_county_income_employment_scatter.png){width="1000px"}
 
-The county-level scatterplot shows a similar upward trend. Among the 3,143 county and county-equivalent observations with both estimates, Pearson's correlation is 0.66 and Spearman's rank correlation is 0.71. The positive relationship remains visible at this finer geographic scale, but there is still substantial variation around the trend line. In other words, counties with higher employment ratios tend to rank higher in income, but knowing a county's employment ratio does not tell us its income with much precision.
+The county-level scatterplot shows a similar upward trend. **Among the 3,143 county and county-equivalent observations with both estimates, Pearson's correlation is 0.66 and Spearman's rank correlation is 0.71.** The positive relationship remains visible at this finer geographic scale, but there is still substantial variation around the trend line. In other words, counties with higher employment ratios tend to rank higher in income, but knowing a county's employment ratio does not tell us its income with much precision.
 
-Besides,Spearman's correlation is somewhat higher than Pearson's coeffient. This suggests that the relative ranking of counties on the two measures tends to move together even when their values do not follow a perfectly straight-line relationship.
+Besides,**Spearman's correlation is somewhat higher than Pearson's coeffient.** This suggests that the relative ranking of counties on the two measures tends to move together even when their values do not follow a perfectly straight-line relationship.
 
 Taken together, these scatterplots show a broad tendency, but not a rule that applies everywhere. Employment is one part of household economic well-being, but it does not tell the whole story. Pay, working hours, the number of earners in a household, family size, and nonlabor income all affect median household income. Local industries, education, age structure, and housing costs add further layers.
 
@@ -127,8 +127,8 @@ Taken together, these scatterplots show a broad tendency, but not a rule that ap
 
 I began with a simple expectation: if more people are working in a place, household incomes there might also be higher. The data support that idea to some extent. **Both the state and county comparisons show a positive relationship between employment-to-population ratios and median household income**.
 
-But the maps also show why the story is not that simple. High household incomes cluster around some of the country's major high-wage job centers, including the Northeast, California's Bay Area, and the Washington, DC, region. Meanwhile, high employment ratios appear in parts of the Great Plains and Upper Midwest. In those places, a relatively large share of adults may be working, but the mix of jobs and pay levels can differ from that of high-wage metropolitan areas.
+But the maps also show why the story is not that simple. **High household incomes cluster around some of the country's major high-wage job centers, including the Northeast, California's Bay Area, and the Washington, DC, region. Meanwhile, high employment ratios appear in parts of the Great Plains and Upper Midwest.** In those places, a relatively large share of adults may be working, but the mix of jobs and pay levels can differ from that of high-wage metropolitan areas.
 
-That contrast is the most interesting finding. A high share of people working and a high level of household income are related, but they are not interchangeable measures of prosperity. To understand why a particular state or county stands out, we would need to look beyond the map at wages, industry mix, education, demographics, commuting patterns, and local prices.
+That contrast is the most interesting finding. **A high share of people working and a high level of household income are related, but they are not interchangeable measures of prosperity.** To understand why a particular state or county stands out, we would need to look beyond the map at wages, industry mix, education, demographics, commuting patterns, and local prices.
 
 There are also limits to what this analysis can tell us. Median household income is adjusted for inflation, but not for differences in the cost of living across places. ACS five-year estimates pool responses collected over 2020–2024 and come with sampling uncertainty. The correlations do not incorporate each estimate's margin of error, and neighboring places may share economic conditions. Finally, these are geographic averages, not data on individual workers or households. They cannot show that employment causes higher income or identify the effects of any single industry or policy.
