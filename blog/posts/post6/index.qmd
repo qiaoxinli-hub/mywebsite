@@ -1,0 +1,412 @@
+---
+title: "Matching Parents and Children with SQL in Python"
+date: 2026-10-22
+categories:
+  - SQL
+  - Data Matching Tutorial
+  - Labor Economics
+---
+
+![Frontpage](frontpage.jpeg){width="800px"}
+
+## Introduction
+
+How much of a child's future economic success is shaped by their parents' income? In labor economics, the standard measure of relative mobility across generations is the **Intergenerational Elasticity of Income (IGE)**, usually estimated by this regression:
+
+$$\log(Y_{\text{child}, i}) = \alpha + \beta \log(Y_{\text{parent}, i}) + \varepsilon_i$$
+
+Here, the slope $\beta$ is the IGE. For example, if $\beta = 0.35$, a 1% difference in parental income is associated with a 0.35% difference in the child's income. A larger $\beta$ implies stronger persistence of economic privilege and lower intergenerational mobility.
+
+1. **Data Matching:** We must track individuals across decades of interviews and accurately link children to their biological parents using household and personal identifiers.
+2. **Income Measurement:** Conceptually, $Y_{\text{parent}}$ and $Y_{\text{child}}$ represent *long-run economic status*. Measuring income in just a single year introduces short-term noise (**attenuation bias**) and depends heavily on what age the person happens to be when observed (**life-cycle bias**).
+
+In this tutorial, we use **Python** and **SQL (`sqlite3`)** with data from the **Panel Study of Income Dynamics (PSID)** to build a reproducible parent–child matching pipeline, construct single-year and multi-year income measures, and test how measurement choices shape our IGE estimates.
+
+## 2. Data preparation
+
+I used two official files from the PSID Data Center: **1968-2023 Individual Data File(IND23)** and **Parent Identification File(PID23)**.
+
+Firstly, **1968-2023 Individual Data File(IND23)** includes all personal data from 1968 to 2023, including the 1968 INTERVIEW NUMBER (`ER30001`), the PERSONS NUMBER (`ER30002`),annual age, and the annual total income or taxable income for each year (e.g. the 1968 personal total income corresponds to `ER30012`). The meaning of these variables is explained in the `IND2023ER.do` file.
+
+I first built the Person-Year Real Income Panel (`person_year`). PSID interviews in survey year $t+1$ report income from calendar year $t$, so the 1968–1993 survey waves provide **1967–1992 income years**. The `age` field used by the script is age at the interview in year $t+1$, while income refers to calendar year $t$; the age windows below therefore use interview age. The function `build_individual_income()` extracts these 26 waves from `IND2023ER`, sums the annual income components (direct money income for 1967–1973; taxable plus transfer income for 1974–1989; and labor, asset, plus transfer income for 1990–1992), and cleans codebook-defined missing values in the early waves.
+
+```
+def build_individual_income(
+    ind_data: Path,
+    ind_format: Path,
+    check_dir: Path,
+) -> tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame]:
+    positions, labels = parse_stata_layout(ind_format)
+    age_fields, type_fields = get_wave_fields(labels)
+    required = {"ER30001", "ER30002"}
+    for income_year, components in INCOME_COMPONENTS.items():
+        interview_year = income_year + 1
+        for field_map, description in (
+            (age_fields, "AGE OF INDIVIDUAL"),
+            (type_fields, "TYPE OF IND RECORD"),
+        ):
+            if interview_year not in field_map:
+                raise ValueError(f"No {description} field for interview year {interview_year}")
+            required.add(field_map[interview_year])
+        required.update(components)
+    missing = sorted(required - set(positions))
+    if missing:
+        raise ValueError(f"IND format is missing required variables: {missing}")
+
+    wanted = ["ER30001", "ER30002"] + sorted(required - {"ER30001", "ER30002"})
+    wide = read_selected_file(ind_data, wanted, ind_format)
+    records: list[pd.DataFrame] = []
+    component_audit: list[dict[str, object]] = []
+    year_audit: list[dict[str, object]] = []
+
+    for income_year, components in INCOME_COMPONENTS.items():
+        interview_year = income_year + 1
+        age_field = age_fields[interview_year]
+        type_field = type_fields[interview_year]
+        values = wide[list(components)].apply(pd.to_numeric, errors="coerce").copy()
+        for variable in components:
+            raw = values[variable].copy()
+            width = positions[variable][1] - positions[variable][0]
+            all_nines = 10**width - 1
+            missing_cleaned = 0
+            early_top_code = all_nines - 1
+            top_code_count = int(raw.eq(early_top_code).sum()) if income_year <= 1973 else int(raw.eq(all_nines).sum())
+            if income_year <= 1973:
+                missing_cleaned = int(raw.eq(all_nines).sum())
+                values[variable] = raw.mask(raw.eq(all_nines))
+                rule = f"{all_nines} = NA/DK; {early_top_code} retained as top code"
+            else:
+                # From 1974 missing amounts were assigned; codebook entries
+                # identify all-9 values as upper-coded amounts for these fields.
+                rule = f"no all-9 missing replacement; {all_nines} retained for codebook/top-code review"
+            component_audit.append(
+                {
+                    "income_year": income_year,
+                    "variable": variable,
+                    "field_width": width,
+                    "missing_rule": rule,
+                    "n_all_nines_in_raw": int(raw.eq(all_nines).sum()),
+                    "n_missing_codes_replaced": missing_cleaned,
+                    "n_topcode_values_retained": top_code_count,
+                    "n_negative_values": int((raw < 0).sum()),
+                }
+            )
+
+        income = (
+            values.iloc[:, 0]
+            if len(components) == 1
+            else values.sum(axis=1, min_count=len(components))
+        )
+        age = pd.to_numeric(wide[age_field], errors="coerce")
+        record_type = pd.to_numeric(wide[type_field], errors="coerce")
+        ids_present = wide["ER30001"].notna() & wide["ER30002"].notna()
+        valid_record_type = record_type.eq(0)
+        valid_age = age.between(1, 98)
+        keep = ids_present & valid_record_type & valid_age
+        records.append(
+            pd.DataFrame(
+                {
+                    "id68": wide["ER30001"].where(keep),
+                    "person_number": wide["ER30002"].where(keep),
+                    "income_year": income_year,
+                    "age": age.where(keep),
+                    "income_nominal": income.where(keep),
+                }
+            ).loc[keep]
+        )
+        year_audit.append(
+            {
+                "income_year": income_year,
+                "interview_year": interview_year,
+                "raw_IND_rows": len(wide),
+                "type_record_0": int(valid_record_type.sum()),
+                "age_1_to_98": int(valid_age.sum()),
+                "valid_type_and_age": int((valid_record_type & valid_age).sum()),
+                "valid_ID_type_age": int(keep.sum()),
+                "income_missing_after_codebook_cleaning": int((income.isna() & keep).sum()),
+            }
+        )
+
+    person_year = pd.concat(records, ignore_index=True)
+    person_year["id68"] = person_year["id68"].astype("int64")
+    person_year["person_number"] = person_year["person_number"].astype("int64")
+    person_year["income_year"] = person_year["income_year"].astype("int64")
+    component_df = pd.DataFrame(component_audit)
+    year_df = pd.DataFrame(year_audit)
+    scope = (
+        person_year.groupby("income_year", as_index=False)
+        .agg(
+            person_year_rows=("id68", "size"),
+            observed_income=("income_nominal", "count"),
+            mean_nominal_income=("income_nominal", "mean"),
+        )
+    )
+    return person_year, year_df, component_df
+```
+I also built the `apply_deflator()` function using the BLS annual-average CPI-U. It converts nominal income to 1992 dollars so income can be compared across years after accounting for inflation.
+
+$$\text{Real Income}_{i,t}^{(1992)} = \text{Nominal Income}_{i,t} \times \frac{\text{CPI}_{1992}}{\text{CPI}_t}$$
+
+
+Secondly, the **Parent Identification File (PID23)** lists each person and the parent identifiers recorded for them. It includes the child's 1968 Interview Number (`PID2`) and Person Number (`PID3`), the mother's identifiers (`PID4`, `PID5`), and the father's identifiers (`PID23`, `PID24`). The variable definitions are in `PID23.do`. The `build_parent_child_pairs()` function links each child to the mother and father listed in PID23; it does not independently verify biological status. It keeps child person numbers from 1 to 998, parent interview IDs from 1 to 9,998, and parent person numbers from 1 to 998, then removes duplicate links. Thus, `999` is allowed as a parent interview ID but excluded as a parent or child person number:
+
+```
+def build_parent_child_pairs(
+    pid_data: Path,
+    pid_format: Path | None,
+    check_dir: Path,
+) -> tuple[pd.DataFrame, pd.DataFrame]:
+    names = ["PID2", "PID3", "PID4", "PID5", "PID23", "PID24"]
+    pid = read_selected_file(pid_data, names, pid_format)
+    pid = pid.rename(
+        columns={
+            "PID2": "child_id68", "PID3": "child_pn",
+            "PID4": "mother_id68", "PID5": "mother_pn",
+            "PID23": "father_id68", "PID24": "father_pn",
+        }
+    )
+    for col in pid.columns:
+        pid[col] = pd.to_numeric(pid[col], errors="coerce")
+
+    children = pid.dropna(subset=["child_id68", "child_pn"]).copy()
+    children = children[(children["child_id68"] > 0) & (children["child_pn"] > 0) & (children["child_pn"] < 999)]
+    links: list[pd.DataFrame] = []
+    audit_rows: list[dict[str, object]] = []
+    for parent_type, id_col, pn_col in (
+        ("mother", "mother_id68", "mother_pn"),
+        ("father", "father_id68", "father_pn"),
+    ):
+        one = children[["child_id68", "child_pn", id_col, pn_col]].rename(
+            columns={id_col: "parent_id68", pn_col: "parent_pn"}
+        )
+        valid = (
+            one["parent_id68"].notna()
+            & one["parent_pn"].notna()
+            & one["parent_id68"].between(1, 9998)
+            & one["parent_pn"].between(1, 998)
+        )
+        cleaned = one.loc[valid].copy()
+        before_dedup = len(cleaned)
+        cleaned["parent_type"] = parent_type
+        cleaned = cleaned.drop_duplicates(
+            ["parent_type", "child_id68", "child_pn", "parent_id68", "parent_pn"]
+        )
+        for col in ["child_id68", "child_pn", "parent_id68", "parent_pn"]:
+            cleaned[col] = cleaned[col].astype("int64")
+        links.append(cleaned)
+        audit_rows.append(
+            {
+                "parent_type": parent_type,
+                "PID_records": len(pid),
+                "valid_child_records": len(children),
+                "missing_or_invalid_parent_ID_pair": int((~valid).sum()),
+                "valid_links_before_dedup": before_dedup,
+                "duplicate_links_removed": before_dedup - len(cleaned),
+                "retained_parent_child_links": len(cleaned),
+            }
+        )
+    pairs = pd.concat(links, ignore_index=True) if links else pd.DataFrame()
+    summary = pd.DataFrame(audit_rows)
+    return pairs, summary
+```
+
+Once our clean tables are ready, we load them into an in-memory SQLite database (`sqlite3.connect(":memory:")`). Using SQL inside Python makes it straightforward to aggregate longitudinal records and join parents to children. Next, I constructed the `build_person_income_measures()` function, where I run two SQL queries on the Personal Real Income Panel `person_year`:
+
+`AVERAGE_INCOME_SQL`: Calculates each person's multi-year average real income during their prime working years (ages 30 to 50), requiring at least 3 years of positive income. 
+
+In `AVERAGE_INCOME_SQL`, the WHERE clause keeps only the years where someone earned strictly positive income during their prime working ages(between 30 and 50). Next,  the GROUP BY clause makes person_number bundle all remaining yearly rows for the same individual together, so SQL can collapse their timeline into a single record. Inside SELECT, I pull the person's IDs and compute AVG(income_real) to get their average real income across waves, and COUNT(income_real)  to see how many valid income years actually went into that average. Finally, the HAVING clause checks those grouped results and drops anyone who doesn't have at least three valid years of prime-age income.
+
+`PARENT_YEAR_INCOME_SQL`: Extracts single-year parental income observations across the target survey waves (1988–1993, covering 1987–1992 income years).
+
+```
+def create_sql_tables(connection: sqlite3.Connection, person_year: pd.DataFrame) -> None:
+    columns = ["id68", "person_number", "income_year", "age", "income_real"]
+    person_year[columns].to_sql("person_year", connection, if_exists="replace", index=False, chunksize=50000)
+
+AVERAGE_INCOME_SQL = """
+SELECT id68, person_number,
+       AVG(income_real) AS avg_income,
+       COUNT(income_real) AS n_income_years
+FROM person_year
+WHERE income_real > 0 AND age BETWEEN 30 AND 50
+GROUP BY id68, person_number
+HAVING COUNT(income_real) >= 3
+"""
+
+PARENT_YEAR_INCOME_SQL = """
+SELECT id68, person_number, income_year, income_year + 1 AS survey_year,
+       age AS parent_age, income_real AS parent_year_income
+FROM person_year
+WHERE income_year BETWEEN 1987 AND 1992
+"""
+```
+
+
+```
+def build_person_income_measures(
+    person_year: pd.DataFrame,
+    age_min: int,
+    age_max: int,
+    min_years: int,
+    survey_year_start: int,
+    survey_year_end: int,
+    check_dir: Path,
+) -> tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame]:
+    with sqlite3.connect(":memory:") as connection:
+        create_sql_tables(connection, person_year)
+        average_income = pd.read_sql_query(AVERAGE_INCOME_SQL, connection, params=(age_min, age_max, min_years))
+        parent_year_income = pd.read_sql_query(
+            PARENT_YEAR_INCOME_SQL,
+            connection,
+            params=(survey_year_start - 1, survey_year_end - 1),
+        )
+    average_income["id68"] = average_income["id68"].astype("int64")
+    average_income["person_number"] = average_income["person_number"].astype("int64")
+    parent_year_income["id68"] = parent_year_income["id68"].astype("int64")
+    parent_year_income["person_number"] = parent_year_income["person_number"].astype("int64")
+    parent_year_income["survey_year"] = parent_year_income["survey_year"].astype("int64")
+    year_counts = (
+        parent_year_income.groupby(["survey_year", "income_year"], as_index=False)
+        .agg(
+            parent_person_year_rows=("id68", "size"),
+            observed_parent_income=("parent_year_income", "count"),
+            positive_parent_income=("parent_year_income", lambda x: int((x > 0).sum())),
+        )
+    )
+    summary = pd.DataFrame(
+        [{"measure": "average_income_age_window", "period": f"age {age_min}-{age_max}", "rows": len(average_income), "min_years": min_years}]
+    )
+    return average_income, parent_year_income, year_counts
+```
+
+Next, I built the `join_parent_child_income()` function to load these tables into SQLite and executes `JOIN_SQL` to place the child's income and the parent's income into the same row. To be more specific, `JOIN_SQL` uses a inner JOIN to connect the parent's  personal ID(`id68`) to `parent_year_income`, keeping only the pairs where that yearly parent record actually exists. Next,because both parents and children live in the same average_income table, we left join `average_income` panel twice. First, we  matching on the child's ID(`id68`)  to grab the child's long-term average income, and then matching on personal ID(`parent_id68`) to grab the parent's long-term average income. Using LEFT JOIN here is a safety net: even if a child or parent didn't meet the criteria for a long-term average, we still keep their family row in the dataset rather than dropping them. Finally, SELECT labels all these columns, and ORDER BY sorts the final table neatly by survey year, parent type, and child ID.
+
+
+```
+JOIN_SQL = """
+SELECT py.survey_year, py.income_year, py.parent_age,
+       p.parent_type, p.child_id68, p.child_pn, p.parent_id68, p.parent_pn,
+       py.parent_year_income,
+       ca.avg_income AS child_average_income,
+       pa.avg_income AS parent_average_income,
+       ca.n_income_years AS child_n_income_years,
+       pa.n_income_years AS parent_n_income_years
+FROM parent_child AS p
+JOIN parent_year_income AS py
+  ON py.id68 = p.parent_id68 AND py.person_number = p.parent_pn
+LEFT JOIN average_income AS ca
+  ON ca.id68 = p.child_id68 AND ca.person_number = p.child_pn
+LEFT JOIN average_income AS pa
+  ON pa.id68 = p.parent_id68 AND pa.person_number = p.parent_pn
+ORDER BY py.survey_year, p.parent_type, p.child_id68, p.child_pn
+"""
+```
+
+```
+def join_parent_child_income(
+    pairs: pd.DataFrame,
+    average_income: pd.DataFrame,
+    parent_year_income: pd.DataFrame,
+    check_dir: Path,
+) -> tuple[pd.DataFrame, pd.DataFrame]:
+    with sqlite3.connect(":memory:") as connection:
+        pairs.to_sql("parent_child", connection, index=False)
+        average_income.to_sql("average_income", connection, index=False)
+        parent_year_income.to_sql("parent_year_income", connection, index=False)
+        joined = pd.read_sql_query(JOIN_SQL, connection)
+    has_avg_child = joined["child_average_income"].notna()
+    has_avg_parent = joined["parent_average_income"].notna()
+    has_parent_year_income = joined["parent_year_income"].notna()
+    joined["complete_measures"] = has_avg_child & has_avg_parent & has_parent_year_income
+    summary = (
+        joined.groupby(["survey_year", "income_year", "parent_type"], as_index=False)
+        .agg(
+            parent_child_year_rows=("child_id68", "size"),
+            matched_child_average=("child_average_income", "count"),
+            matched_parent_average=("parent_average_income", "count"),
+            matched_parent_year_income=("parent_year_income", "count"),
+            complete_for_regression=("complete_measures", "sum"),
+        )
+    )
+    return joined, summary
+    
+```
+
+## Estimating IGE in Linear Regression
+
+Finally, I estimate log-log OLS regressions for each survey year (1988–1993), separately for mothers and fathers. The dependent variable is the child's average real income over observed interview ages 30–50. The predictor is either the parent's single-year real income for that income year or the parent's average real income over observed interview ages 30–50. Each age-30–50 average requires at least three positive-income years.
+
+$$
+\log(\overline{Y}_{child,i})=\alpha+\beta_1\log(Y_{parent,i,t})+\varepsilon_i
+$$
+
+
+$$
+\log(\overline{Y}_{child,i})=\alpha+\beta_2\log(\overline{Y}_{parent,i,average})+\varepsilon_i
+$$
+
+For each survey year and parent type, both specifications use the same positive-income sample: the child's average income, the parent's single-year income, and the parent's age-30–50 average must all be greater than zero. Standard errors are clustered by the parent's 1968 Interview Number and Person Number, so siblings linked to the same parent are treated as a cluster.
+
+## Comparing IGE between Single-Year and Multi-Year Average
+
+The table compares estimates across six survey waves (1988–1993; income years 1987–1992). Each wave reports four estimates: two parent types (mother and father) crossed with two parental income measures (single-year and age-30–50 average), for 24 estimates in total:
+
+| Survey Year (Income Year) | Father Mean Age | Father One-Year IGE ($\hat{\beta}_1$) | Father 30–50 Avg IGE ($\hat{\beta}_2$) | Mother Mean Age | Mother One-Year IGE ($\hat{\beta}_1$) | Mother 30–50 Avg IGE ($\hat{\beta}_2$) |
+| :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| **1988 (1987)** | 59.8 | 0.202 (0.029) | **0.357** (0.045) | 57.5 | 0.161 (0.023) | **0.217** (0.037) |
+| **1989 (1988)** | 60.8 | 0.225 (0.030) | **0.357** (0.044) | 58.6 | 0.129 (0.027) | **0.171** (0.036) |
+| **1990 (1989)** | 61.9 | 0.214 (0.034) | **0.341** (0.044) | 59.6 | 0.113 (0.026) | **0.186** (0.036) |
+| **1991 (1990)** | 62.9 | 0.198 (0.036) | **0.347** (0.044) | 60.7 | 0.141 (0.026) | **0.181** (0.035) |
+| **1992 (1991)** | 63.9 | 0.235 (0.032) | **0.342** (0.046) | 61.7 | 0.173 (0.026) | **0.164** (0.034) |
+| **1993 (1992)** | **65.0** | **0.103** (0.018) | **0.343** (0.046) | **62.8** | **0.086** (0.015) | **0.184** (0.035) |
+
+Across survey waves, the age-30–50 average-income estimates vary less and are generally larger than the single-year estimates. For example, the 1988 father estimate is 0.357 for the average measure and 0.202 for the single-year measure. The mother's 1991 income-year estimate (survey year 1992) is the exception: 0.164 versus 0.173. A larger IGE means a stronger estimated association between parental and child income, not less sensitivity. This pattern is consistent with attenuation from transitory noise in a single-year income measure. However, the single-year parent incomes are observed when parents' mean interview ages range from about 57.5 to 65, whereas the comparison average is based on ages 30–50. The difference can therefore also reflect parents' life-cycle income patterns; this comparison alone does not isolate attenuation bias.
+
+## Examining Age-Profile Patterns Consistent with Life-Cycle Bias
+In real life, income usually changes over people's working life. For example, children from higher-income families often invest in more schooling and enter the labor force later. Therefore, their early-career earnings in their 20s may be lower than peers who started working full-time right after high school, even though their earnings grow much faster afterwards. Measuring income at a single year too early in adulthood may understate IGE. And this phenomenon is known as life-cycle bias.
+
+To examine how the estimates vary with children's age, I used `AGE_BAND_QUERY` to construct child income for six interview-age bands (`20–24, 25–29, 30–34, 35–39, 40–44, and 45–49`) and join each band to the parent's average lifetime income at ages 30–50. Child band income averages the available income observations in that band. The parent's age-30–50 average requires at least three positive-income years. A separate regression is estimated for each parent type and child age band:
+
+```
+WITH child_band_income AS (
+    SELECT id68, person_number, AVG(income_real) AS band_income,
+           COUNT(income_real) AS n_band_years
+    FROM person_year
+    WHERE income_real > 0 AND age BETWEEN ? AND ?
+    GROUP BY id68, person_number
+), parent_average AS (
+    SELECT id68, person_number, AVG(income_real) AS avg_income,
+           COUNT(income_real) AS n_income_years
+    FROM person_year
+    WHERE income_real > 0 AND age BETWEEN ? AND ?
+    GROUP BY id68, person_number
+    HAVING COUNT(income_real) >= ?
+)
+SELECT p.parent_type, p.child_id68, p.child_pn, p.parent_id68, p.parent_pn,
+       cb.band_income AS child_band_income,
+       pa.avg_income AS parent_average_income
+FROM parent_child AS p
+LEFT JOIN child_band_income AS cb
+  ON cb.id68 = p.child_id68 AND cb.person_number = p.child_pn
+LEFT JOIN parent_average AS pa
+  ON pa.id68 = p.parent_id68 AND pa.person_number = p.parent_pn;
+```
+
+As the Outcomes shown in below, the estimates for the older age bands are generally higher than those for ages 20–24. This pattern is consistent with life-cycle bias in measured income. However, since each band uses its available parent–child pairs rather than the same balanced group of people, sample composition and positive-income selection may also affect the estimates, which relates to life-cycle bias. 
+
+| **Child's Age Band** | **Mother's IGE (N pairs)** | **Father's IGE (N pairs)** |
+| :---: | :---: | :---: |
+| **20–24** | 0.076 (5,978) | 0.338 (4,155) |
+| **25–29** | 0.120 (4,445) | 0.380 (3,160) |
+| **30–34** | 0.111 (3,033) | 0.345 (2,164) |
+| **35–39** | 0.171 (1,716) | 0.405 (1,211) |
+| **40–44** | 0.200 (734) | 0.412 (495) |
+| **45–49** | 0.357 (129) | 0.499 (86) |
+
+The N values are parent–child pairs and standard errors in the script are clustered by parent. Sample sizes fall sharply at age band 45–49, so those estimates are less precise. The age bands are defined using interview age, while the corresponding income refers to the preceding calendar year.
+
+
+In any one year, income combines longer-run earning capacity ($y_i^*$) with temporary fluctuations ($\nu_{it}$), such as a bonus, layoff, or illness. Averaging several positive-income observations may reduce this transitory noise and provide a more stable proxy for longer-run income, but it does not perfectly isolate permanent earning capacity. Here, the averages are limited to observed ages 30–50 and require at least three positive-income years.
+
+Thus, multi-year averages can be useful measures of longer-run income, with results depending on the age window and sample rules.
+
