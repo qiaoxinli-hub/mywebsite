@@ -2,10 +2,8 @@
 .Rhistory
 .RData
 .Ruserdata
-
 /.quarto/
-
 **/*.quarto_ipynb
-
 cps_*.dat.gz
 cps_*.xml
+PCHR_Awareness_Checkup_Prototype.html

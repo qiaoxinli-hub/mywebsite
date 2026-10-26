@@ -1,0 +1,831 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.38">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="dcterms.date" content="2026-10-25">
+
+<title>How Did Employment Indicators Change Across U.S. States from 1976 to 2024? – Student Name</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../../">
+<script src="../../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../../site_libs/bootstrap/bootstrap-6b423f165eeea3787de40cb4f8e821c3.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="../../../styles.css">
+</head>
+
+<body class="nav-fixed fullcontent quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../../../index.html">
+    <span class="navbar-title">Student Name</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../../index.html"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../bio.html"> 
+<span class="menu-text">About Me</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../resume.html"> 
+<span class="menu-text">Resume</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../blog/index.html"> 
+<span class="menu-text">Blog</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">How Did Employment Indicators Change Across U.S. States from 1976 to 2024?</h1>
+  <div class="quarto-categories">
+    <div class="quarto-category">Labor Economics</div>
+    <div class="quarto-category">State Employment</div>
+    <div class="quarto-category">Interactive Data Visualization</div>
+  </div>
+  </div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">October 25, 2026</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="frontpage.png" class="img-fluid figure-img" width="800"></p>
+<figcaption>Front page</figcaption>
+</figure>
+</div>
+<section id="question-and-motivation" class="level2">
+<h2 class="anchored" data-anchor-id="question-and-motivation">1. Question and Motivation</h2>
+<p>Employment conditions are not the same across the United States. A national unemployment rate can show whether the labor market is improving overall, but it can hide important differences between states. Some states may experience larger increases in unemployment during a recession, while others may recover more quickly.</p>
+<p>This leads to my question:</p>
+<blockquote class="blockquote">
+<p><strong>How did employment indicators change across U.S. states from 1976 to 2024, and what do these changes tell us about recessions such as the Great Recession and COVID-19?</strong></p>
+</blockquote>
+<p>I use an interactive visualization to compare three indicators, which are <strong>unemployment rate, the labor force participation rate, and the employment-to-population ratio</strong>. The goal is not only to show the national pattern, but also to let readers explore differences between states and inspect particular periods.</p>
+</section>
+<section id="data-processing" class="level2">
+<h2 class="anchored" data-anchor-id="data-processing">2. Data Processing</h2>
+<p>I use annual-average state labor market data published by the U.S. Bureau of Labor Statistics (<strong>BLS</strong>). The BLS provides annual state data on the employment status of the civilian noninstitutional population, with state series beginning in 1976. BLS documents the series and its methods on the <a href="https://www.bls.gov/lau/rdscnp16.htm">LAUS data page</a>. The workbook contains data through 2025; this analysis uses <strong>1976–2024</strong> and includes the <strong>50 states and the District of Columbia</strong>.</p>
+<p>For this analysis, I restrict the timeframe to 1976–2024 and remove metropolitan-area observations so that the comparison includes only the 50 states and D.C. I also verify that all 51 jurisdictions have exactly one observation for each year in the analysis period.</p>
+<p>The three indicators I used in this post are as below:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Indicator</th>
+<th style="text-align: left;">Definition</th>
+<th style="text-align: left;">What it helps describe</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><strong>Employment-to-population ratio</strong></td>
+<td style="text-align: left;">Employed people ÷ civilian noninstitutional population age 16+</td>
+<td style="text-align: left;">The share of the population that is employed</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>Labor-force participation rate</strong></td>
+<td style="text-align: left;">Civilian labor force ÷ civilian noninstitutional population age 16+</td>
+<td style="text-align: left;">The share of the population that is working or actively looking for work</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>Unemployment rate</strong></td>
+<td style="text-align: left;">Unemployed people ÷ civilian labor force</td>
+<td style="text-align: left;">The share of the labor force that is unemployed</td>
+</tr>
+</tbody>
+</table>
+<p>These measures answer different questions. The unemployment rate describes joblessness among people who are in the labor force. The participation rate shows how many people are working or actively seeking work. The employment-to-population ratio focuses on the share of the population that is currently employed.</p>
+<p>The first two measures use the same population denominator. The unemployment rate uses only people in the labor force, so a low unemployment rate doesn’t by itself mean that a high share of residents is employed.</p>
+</section>
+<section id="interactive-visualization" class="level2">
+<h2 class="anchored" data-anchor-id="interactive-visualization">3. Interactive Visualization</h2>
+<p>The interactive graph below shows annual employment indicator values for the 50 states and D.C. Use <strong>Indicator</strong> to switch among the three measures, select one or more jurisdictions in <strong>States</strong>, and move the <strong>Year range</strong> slider to focus on a period. Hover over a line to see its jurisdiction, year, and rate.</p>
+<p>The shaded bands mark three U.S. downturns: the 2001 recession, the 2007–2009 Great Recession, and the 2020 COVID-19 recession. The <a href="https://www.nber.org/research/data/us-business-cycle-expansions-and-contractions">National Bureau of Economic Research (NBER)</a> dates these contractions to March–November 2001, December 2007–June 2009, and February–April 2020, respectively. Because the visualization uses annual averages, the bands provide calendar-year context rather than exact monthly recession windows.</p>
+<iframe src="interactive-graph.html" title="Interactive U.S. state employment indicators, 1976–2024" width="100%" height="900" style="border: 0; display: block; width: 96vw; max-width: 1800px; position: relative; left: 50%; transform: translateX(-50%);">
+</iframe>
+</section>
+<section id="what-the-data-show" class="level2">
+<h2 class="anchored" data-anchor-id="what-the-data-show">4. What the Data Show</h2>
+<section id="recessions-bring-higher-unemployment-and-lower-employment" class="level3">
+<h3 class="anchored" data-anchor-id="recessions-bring-higher-unemployment-and-lower-employment">(1) Recessions bring higher unemployment and lower employment</h3>
+<p>Onepattern that stands out when moving between states is that unemployment rates tend to rise while mployment-to-population ratio (EPR) falls across the three downturns. This makes sense given that businesses may reduce hiring or cut jobs during a broad downturn, and more people may be looking for work without finding it.</p>
+<p>State differences make the downturns more concrete. During the Great Recession, Michigan recorded the highest state unemployment rate in 2009, at 13.6 percent. In the 2020 annual data, Nevada had the highest unemployment rate among states in US.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="ER_2000to2024.png" class="img-fluid figure-img" width="800"></p>
+<figcaption>ER_2000to2024</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="UR_2000to2024.png" class="img-fluid figure-img" width="800"></p>
+<figcaption>UR_2000to2024</figcaption>
+</figure>
+</div>
+<p>As the graph shows, the labor force participation rate (LFPR) also declines in many states around these episodes, although its movement is generally less dramatic than the rise in unemployment or the drop in the employment-to-population ratio. LFPR measures the share of the civilian noninstitutional population age 16 and older that is either employed or actively looking for a job.</p>
+<p>This distinction matters. A person who does not have a job but is actively searching is counted as unemployed. If that person stops actively looking for work, they are no longer counted as unemployed; they are classified as outside the labor force. As a result, the unemployment rate can fall even when some people have not found jobs but have stopped searching. Looking at unemployment alongside LFPR and the employment-to-population ratio helps avoid interpreting a lower unemployment rate as a full recovery on its own.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="LFR_2000to2024.png" class="img-fluid figure-img" width="800"></p>
+<figcaption>LFR_2000to2024</figcaption>
+</figure>
+</div>
+</section>
+<section id="the-2024-employment-ratio-remained-below-2019-in-most-states" class="level3">
+<h3 class="anchored" data-anchor-id="the-2024-employment-ratio-remained-below-2019-in-most-states">(2) The 2024 employment ratio remained below 2019 in most states</h3>
+<p>The second comparison focuses on the years immediately before the pandemic(2019) and the latest year in this dataset(2024). I subtract each state’s 2019 employment-to-population ratio from its 2024 value and a negative change means that a smaller share of the civilian noninstitutional population was employed in 2024 than in 2019.</p>
+<p>The five largest declines in the data are <strong>Maryland, New Hampshire, Iowa, Wyoming, and Maine</strong>. <strong>Maryland</strong> had the largest drop, from 66.5 percent in 2019 to 63.1 percent in 2024, a decline of <strong>3.4</strong> percentage points. <strong>New Hampshire and Iowa</strong> followed closely, with declines of <strong>3.3</strong> and <strong>3.2</strong> percentage points. <strong>Wyoming</strong> fell by <strong>2.4</strong> points, and <strong>Maine</strong> by <strong>2.3</strong> points.</p>
+<p>By 2024, <strong>39 of 50 states</strong> had an EPR below their own 2019 level. The five largest declines were:</p>
+<div class="cell">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption>Five states with the largest 2019–2024 declines in the employment-to-population ratio</caption>
+<colgroup>
+<col style="width: 19%">
+<col style="width: 21%">
+<col style="width: 21%">
+<col style="width: 38%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">State</th>
+<th style="text-align: right;">2019 ratio (%)</th>
+<th style="text-align: right;">2024 ratio (%)</th>
+<th style="text-align: right;">Change (percentage points)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Maryland</td>
+<td style="text-align: right;">66.5</td>
+<td style="text-align: right;">63.1</td>
+<td style="text-align: right;">-3.4</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">New Hampshire</td>
+<td style="text-align: right;">67.1</td>
+<td style="text-align: right;">63.8</td>
+<td style="text-align: right;">-3.3</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Iowa</td>
+<td style="text-align: right;">68.1</td>
+<td style="text-align: right;">64.9</td>
+<td style="text-align: right;">-3.2</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Wyoming</td>
+<td style="text-align: right;">63.2</td>
+<td style="text-align: right;">60.8</td>
+<td style="text-align: right;">-2.4</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Maine</td>
+<td style="text-align: right;">60.6</td>
+<td style="text-align: right;">58.3</td>
+<td style="text-align: right;">-2.3</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>The following <strong>11 states</strong> had returned to or exceeded their 2019 EPR by 2024:</p>
+<div class="cell">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption>States at or above their 2019 employment-to-population ratio in 2024</caption>
+<colgroup>
+<col style="width: 19%">
+<col style="width: 21%">
+<col style="width: 21%">
+<col style="width: 38%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">State</th>
+<th style="text-align: right;">2019 ratio (%)</th>
+<th style="text-align: right;">2024 ratio (%)</th>
+<th style="text-align: right;">Change (percentage points)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Alabama</td>
+<td style="text-align: right;">55.9</td>
+<td style="text-align: right;">55.9</td>
+<td style="text-align: right;">0.0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">New York</td>
+<td style="text-align: right;">58.3</td>
+<td style="text-align: right;">58.3</td>
+<td style="text-align: right;">0.0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Arkansas</td>
+<td style="text-align: right;">56.1</td>
+<td style="text-align: right;">56.2</td>
+<td style="text-align: right;">0.1</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">New Mexico</td>
+<td style="text-align: right;">55.1</td>
+<td style="text-align: right;">55.3</td>
+<td style="text-align: right;">0.2</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Mississippi</td>
+<td style="text-align: right;">53.1</td>
+<td style="text-align: right;">53.4</td>
+<td style="text-align: right;">0.3</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Texas</td>
+<td style="text-align: right;">61.7</td>
+<td style="text-align: right;">62.2</td>
+<td style="text-align: right;">0.5</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Arizona</td>
+<td style="text-align: right;">59.0</td>
+<td style="text-align: right;">59.6</td>
+<td style="text-align: right;">0.6</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Oregon</td>
+<td style="text-align: right;">59.2</td>
+<td style="text-align: right;">59.9</td>
+<td style="text-align: right;">0.7</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">West Virginia</td>
+<td style="text-align: right;">52.0</td>
+<td style="text-align: right;">52.9</td>
+<td style="text-align: right;">0.9</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Alaska</td>
+<td style="text-align: right;">61.0</td>
+<td style="text-align: right;">62.1</td>
+<td style="text-align: right;">1.1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Oklahoma</td>
+<td style="text-align: right;">59.2</td>
+<td style="text-align: right;">61.1</td>
+<td style="text-align: right;">1.9</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>D.C. is not included in the count of 50 states. Its EPR changed from <strong>67.2%</strong> in 2019 to <strong>68.9%</strong> in 2024, a change of <strong>1.7 percentage points</strong>.</p>
+</section>
+<section id="only-11-states-had-returned-to-or-exceeded-their-2019-employment-to-population-ratio-by-2024" class="level3">
+<h3 class="anchored" data-anchor-id="only-11-states-had-returned-to-or-exceeded-their-2019-employment-to-population-ratio-by-2024">(3) Only 11 states had returned to or exceeded their 2019 employment-to-population ratio by 2024</h3>
+<p>The interactive graph also shows that the recovery was not the same in every state. Using the rule that a state is considered to have returned to its pre-pandemic level when its 2024 ratio is at least as high as its 2019 ratio, 11 states meet that threshold in this dataset: <strong>Alabama, New York, Arkansas, New Mexico, Mississippi, Texas, Arizona, Oregon, West Virginia, Alaska, and Oklahoma</strong>.</p>
+<p><strong>Oklahoma</strong> recorded the largest increase relative to 2019, followed by <strong>Alaska</strong> and <strong>West Virginia</strong>. <strong>Alabama</strong> and <strong>New York</strong> were essentially unchanged at the one-decimal precision shown in the table.</p>
+<p>Taken all the findings above together, we can see that the three recessions differ in duration and severity. The 2001 recession shows a milder, more gradual adjustment in annual data than the Great Recession or the abrupt COVID-19 shock. The Great Recession’s labor-market effects persist into the years after the NBER-dated contraction. The COVID-19 shock is concentrated in 2020, followed by substantial—but uneven—improvement.</p>
+</section>
+</section>
+<section id="what-do-these-results-tell-us" class="level2">
+<h2 class="anchored" data-anchor-id="what-do-these-results-tell-us">5. What Do These Results Tell Us?</h2>
+<p>The interactive visualization reveals three main patterns.</p>
+<p><em>First, major recessions are clearly reflected in the graph.</em> During downturns, unemployment rates generally rise, while employment-to-population ratios fall. These changes show that downturns affect both people looking for work and the share of the population that is employed, although the size of the impact varies across states.</p>
+<p><em>Second, the labor force participation rate helps explain what the unemployment rate alone may miss.</em> When people stop actively looking for work, they are no longer counted as unemployed because they have left the labor force. As a result, unemployment can fall even when some people remain out of work. Looking at the labor force participation rate and the employment-to-population ratio alongside unemployment provides a more complete picture of labor market conditions.</p>
+<p><em>Finally, the comparison between 2019 and 2024 shows that the recovery after COVID-19 was uneven.</em> By 2024, 11 states had returned to or exceeded their 2019 employment-to-population ratio. In contrast, Maryland, New Hampshire, Iowa, Wyoming, and Maine had the largest declines over this period. These differences are easy to miss when looking only at national trends. The interactive graph allows readers to compare individual states, focus on specific periods, and explore how labor market recovery differed across the country.</p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p><img src="../../..\images/UniversityofPennsylvania_FullLogo_RGB.png" class="img-fluid" width="100"></p>
+</div>   
+    <div class="nav-footer-center">
+<p>© 2026 Student Name</p>
+</div>
+    <div class="nav-footer-right">
+      &nbsp;
+    </div>
+  </div>
+</footer>
+
+
+
+
+</body></html>
