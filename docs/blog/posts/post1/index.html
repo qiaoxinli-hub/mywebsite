@@ -6,9 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="dcterms.date" content="2026-09-13">
+<meta name="dcterms.date" content="2026-10-26">
 
-<title>First Blog Post: Understanding Logit – Student Name</title>
+<title>Why Isn’t the Unemployment Rate the Opposite of the Employment Rate? – Student Name</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -155,11 +155,11 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">First Blog Post: Understanding Logit</h1>
+<h1 class="title">Why Isn’t the Unemployment Rate the Opposite of the Employment Rate?</h1>
   <div class="quarto-categories">
-    <div class="quarto-category">Econometrics</div>
-    <div class="quarto-category">Microeconomics</div>
-    <div class="quarto-category">Statistics</div>
+    <div class="quarto-category">Labor Economics</div>
+    <div class="quarto-category">Unemployment Rate</div>
+    <div class="quarto-category">Conceptual Comparison</div>
   </div>
   </div>
 
@@ -171,7 +171,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">September 13, 2026</p>
+      <p class="date">October 26, 2026</p>
     </div>
   </div>
   
@@ -183,223 +183,140 @@ window.Quarto = {
 </header>
 
 
-<p>首先，</p>
-<p><img src="figure1.png" class="img-fluid" width="500"></p>
-<section id="introduction-why-do-we-need-the-logit" class="level2">
-<h2 class="anchored" data-anchor-id="introduction-why-do-we-need-the-logit">1. Introduction: Why Do We Need the Logit?</h2>
-<p>In statistics, we often want to predict the probability of an event. For example, we may want to estimate the probability that a person votes for a certain political party, buys a product, or chooses one transportation option over another.</p>
-<p>At first, it seems natural to use a linear regression:</p>
-<p><span class="math display">\[
-P(Y=1|X)=\beta_0+\beta_1X
-\]</span></p>
-<p>However, probability must always lie between 0 and 1. A linear regression can produce values such as 1.2 or -0.3, which cannot be probabilities. The <strong>logit</strong> provides a simple way to solve this problem.</p>
-<p>The idea becomes much more intuitive once we start with <strong>odds</strong>.</p>
-<hr>
+<p><img src="picture1.jpg" class="img-fluid" width="800"></p>
+<section id="the-question-that-bothered-me" class="level2">
+<h2 class="anchored" data-anchor-id="the-question-that-bothered-me">1. The Question That Bothered Me</h2>
+<p>When I first studied labor economics as an undergraduate, I was often confused by three terms: the <strong>unemployment rate</strong>, the <strong>employment-population ratio</strong>, and the <strong>labor force participation rate</strong>. What bothered me most was that the unemployment rate and the employment-population ratio did not add up to 100%. I thought employment and unemployment were two sides of the same coin. If someone is not unemployed, shouldn’t they be employed?</p>
+<p>The numbers made the puzzle even harder to ignore. According to the <a href="https://www.bls.gov/cps/cpsaat05.htm">U.S. Bureau of Labor Statistics (BLS)</a>, the 2025 annual average unemployment rate was 4.3%, while the employment-population ratio was 59.7%. Together, they add up to just 64%, far below 100%.</p>
+<p>At first, I wondered whether I had misunderstood the definitions or missed something in the calculations. How could two rates that seem to describe opposite outcomes be so different? And why isn’t the unemployment rate simply the opposite of the employment rate?</p>
 </section>
-<section id="from-probability-to-odds" class="level2">
-<h2 class="anchored" data-anchor-id="from-probability-to-odds">2. From Probability to Odds</h2>
-<p>Odds compare the probability that an event happens with the probability that it does not happen:</p>
-<p><span class="math display">\[
-\text{Odds}=\frac{p}{1-p}
-\]</span></p>
-<p>The idea of odds can be traced back to gambling. Suppose two people play a dice game. Player A wins if the die shows a 3, while Player B wins otherwise.</p>
-<p>The probability that A wins is:</p>
-<p><span class="math display">\[
-P(A)=\frac{1}{6}
-\]</span></p>
-<p>The probability that A loses is:</p>
-<p><span class="math display">\[
-P(A^c)=\frac{5}{6}
-\]</span></p>
-<p>Therefore, the odds that A wins are:</p>
-<p><span class="math display">\[
-\text{Odds}=\frac{1/6}{5/6}=\frac{1}{5}
-\]</span></p>
-<p>In other words, for every $1 bet on A, a fair bet would require $5 on B.</p>
-<p>Odds are useful, but they are still restricted to positive values. Taking the natural logarithm gives us the <strong>logit transformation</strong>.</p>
-<hr>
-</section>
-<section id="the-logit-function-probability-becomes-log-odds" class="level2">
-<h2 class="anchored" data-anchor-id="the-logit-function-probability-becomes-log-odds">3. The Logit Function: Probability Becomes Log-Odds</h2>
-<p>The logit function is defined as:</p>
-<p><span class="math display">\[
-\operatorname{logit}(p)
-=
-\ln\left(\frac{p}{1-p}\right)
-\]</span></p>
-<p>Unlike probability, which is restricted to the interval <span class="math inline">\((0,1)\)</span>, the logit can take any value from <span class="math inline">\(-\infty\)</span> to <span class="math inline">\(+\infty\)</span>.</p>
-<p>This transformation is useful because it converts a bounded probability into an unbounded variable that can be modeled using a linear equation.</p>
-<p>For example, if:</p>
-<p><span class="math display">\[
-p=0.8
-\]</span></p>
-<p>then:</p>
-<p><span class="math display">\[
-\operatorname{logit}(0.8)
-=
-\ln\left(\frac{0.8}{0.2}\right)
-=
-\ln(4)
-\approx1.39
-\]</span></p>
-<p>The interpretation is straightforward: a probability greater than 0.5 produces positive log-odds, a probability of 0.5 produces zero log-odds, and a probability below 0.5 produces negative log-odds.</p>
-<hr>
-</section>
-<section id="the-logit-model" class="level2">
-<h2 class="anchored" data-anchor-id="the-logit-model">4. The Logit Model</h2>
-<p>The <strong>logit model</strong> applies this transformation to a statistical model.</p>
-<p>Suppose <span class="math inline">\(Y\)</span> is a binary outcome:</p>
-<p><span class="math display">\[
-Y=
-\begin{cases}
-1 &amp; \text{if an event occurs}\\
-0 &amp; \text{otherwise}
-\end{cases}
-\]</span></p>
-<p>Let:</p>
-<p><span class="math display">\[
-p=P(Y=1|X)
-\]</span></p>
-<p>A logit model assumes that the log-odds of the event are a linear function of the explanatory variables:</p>
-<p><span class="math display">\[
-\boxed{
-\ln\left(\frac{p}{1-p}\right)
-=
-\beta_0+\beta_1X_1+\cdots+\beta_kX_k
-}
-\]</span></p>
-<p>This is the key connection between the logit function and the logit model.</p>
-<p>The <strong>logit function</strong> is the transformation</p>
-<p><span class="math display">\[
-\operatorname{logit}(p)
-=
-\ln\left(\frac{p}{1-p}\right),
-\]</span></p>
-<p>while the <strong>logit model</strong> assumes that this transformed probability is linear in the explanatory variables.</p>
-<hr>
-</section>
-<section id="from-the-logit-model-to-probability" class="level2">
-<h2 class="anchored" data-anchor-id="from-the-logit-model-to-probability">5. From the Logit Model to Probability</h2>
-<p>The equation above can be rearranged to obtain the probability itself:</p>
-<p><span class="math display">\[
-p=
-\frac{1}{1+\exp[-(\beta_0+\beta_1X_1+\cdots+\beta_kX_k)]}
-\]</span></p>
-<p>This is called the <strong>logistic function</strong>.</p>
-<p>It maps any value on the real number line into a value between 0 and 1:</p>
-<p><span class="math display">\[
--\infty
-\quad\longrightarrow\quad
-0
-\]</span></p>
-<p>and</p>
-<p><span class="math display">\[
-+\infty
-\quad\longrightarrow\quad
-1
-\]</span></p>
-<p>Therefore, the logit and logistic functions are inverse transformations:</p>
-<p><span class="math display">\[
-\boxed{
-\operatorname{logit}(p)=\ln\left(\frac{p}{1-p}\right)
-}
-\]</span></p>
-<p>and</p>
-<p><span class="math display">\[
-\boxed{
-p=\frac{1}{1+e^{-X\beta}}
-}
-\]</span></p>
-<p>This is why a logit model can describe probabilities without predicting impossible values such as 1.2 or -0.3.</p>
-<hr>
-</section>
-<section id="logit-regression-estimating-the-model" class="level2">
-<h2 class="anchored" data-anchor-id="logit-regression-estimating-the-model">6. Logit Regression: Estimating the Model</h2>
-<p>It is important to distinguish the <strong>logit model</strong> from <strong>logit regression</strong>.</p>
-<p>The logit model tells us what relationship we assume exists:</p>
-<p><span class="math display">\[
-\operatorname{logit}(p)=X\beta
-\]</span></p>
-<p>But the coefficients <span class="math inline">\(\beta\)</span> are unknown. <strong>Logit regression</strong> is the procedure we use to estimate these coefficients from observed data.</p>
-<p>For example, suppose we want to predict whether a person votes for a political party based on age, income, and education:</p>
-<p><span class="math display">\[
-\operatorname{logit}(p_i)
-=
-\beta_0
-+\beta_1 Age_i
-+\beta_2 Income_i
-+\beta_3 Education_i
-\]</span></p>
-<p>Using a dataset of voters, logit regression estimates:</p>
-<p><span class="math display">\[
-\hat{\beta}_0,\hat{\beta}_1,\hat{\beta}_2,\hat{\beta}_3
-\]</span></p>
-<p>The estimates are typically obtained using <strong>Maximum Likelihood Estimation (MLE)</strong> rather than ordinary least squares.</p>
-<p>Therefore, the three concepts can be summarized as follows:</p>
+<section id="the-three-groups-behind-the-rates" class="level2">
+<h2 class="anchored" data-anchor-id="the-three-groups-behind-the-rates">2. The Three Groups Behind the Rates</h2>
+<p>Let’s start with four symbols:</p>
 <ul>
-<li><strong>Logit function:</strong> transforms probability into log-odds.</li>
-<li><strong>Logit model:</strong> assumes log-odds are a linear function of explanatory variables.</li>
-<li><strong>Logit regression:</strong> uses observed data to estimate the coefficients of the model.</li>
+<li><span class="math inline">\(E\)</span>: employed people</li>
+<li><span class="math inline">\(U\)</span>: unemployed people</li>
+<li><span class="math inline">\(N\)</span>: people not in the labor force</li>
+<li><span class="math inline">\(P\)</span>: the reference population used to calculate the rates</li>
 </ul>
-<hr>
-</section>
-<section id="applications-in-microeconomics-discrete-choice" class="level2">
-<h2 class="anchored" data-anchor-id="applications-in-microeconomics-discrete-choice">7. Applications in Microeconomics: Discrete Choice</h2>
-<p>The logit becomes especially useful when consumers make <strong>discrete choices</strong>.</p>
-<p>In traditional microeconomics, consumers may choose a continuous quantity, such as how many apples to buy. In real markets, however, consumers often choose one option from several alternatives: one car, one airline, or one breakfast cereal.</p>
-<p>Economists can represent this using a <strong>Random Utility Model</strong>:</p>
+<p>The labor force includes employed people and unemployed people:</p>
 <p><span class="math display">\[
-U_{ij}=\delta_j+\varepsilon_{ij}
+L = E + U
 \]</span></p>
-<p>where <span class="math inline">\(\delta_j\)</span> represents the average utility of product <span class="math inline">\(j\)</span>, while <span class="math inline">\(\varepsilon_{ij}\)</span> captures individual-specific taste differences.</p>
-<p>If the random component follows a Type I Extreme Value distribution, the probability that consumer <span class="math inline">\(i\)</span> chooses product <span class="math inline">\(j\)</span> becomes:</p>
+<p>Under the BLS definition, people are counted as unemployed if they do not have a job, are available to work, and have actively looked for work in the past four weeks. People on temporary layoff who expect to be called back are also counted as unemployed.</p>
+<p>For the BLS Current Population Survey, the reference population <span class="math inline">\(P\)</span> is the civilian noninstitutional population age 16 and older. It excludes people in institutions and people on active duty in the military.</p>
+<p>People who are neither employed nor counted as unemployed are outside the labor force,which is denoted by <span class="math inline">\(N\)</span>. This group can include students, retirees, people with caregiving responsibilities, and people who want a job but have not recently looked for one.</p>
+<p>So the reference population consists of the labor force and everyone outside it:</p>
 <p><span class="math display">\[
-s_j=P_{ij}
+P = L + N = (E + U) + N
+\]</span></p>
+<p>The three measures are calculated as follows:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Measure</th>
+<th>Formula</th>
+<th>What it tells us</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Unemployment rate (UR)</td>
+<td><span class="math inline">\(\dfrac{U}{E+U}\)</span></td>
+<td>Among people in the labor force, what share is unemployed?</td>
+</tr>
+<tr class="even">
+<td>Labor force participation rate (LFPR)</td>
+<td><span class="math inline">\(\dfrac{E+U}{P}\)</span></td>
+<td>What share of the reference population is working or actively looking for work?</td>
+</tr>
+<tr class="odd">
+<td>Employment-population ratio (EPR)</td>
+<td><span class="math inline">\(\dfrac{E}{P}\)</span></td>
+<td>What share of the reference population is employed?</td>
+</tr>
+</tbody>
+</table>
+<p>The denominators are the key. The unemployment rate looks only at the labor force. The other two rates use the larger reference population.</p>
+</section>
+<section id="how-the-three-measures-fit-together" class="level2">
+<h2 class="anchored" data-anchor-id="how-the-three-measures-fit-together">3. How the Three Measures Fit Together</h2>
+<p>If we subtract the unemployment rate from 1, we get the share of the labor force that is employed:</p>
+<p><span class="math display">\[
+1 - \text{UR} = \frac{E}{E+U}
+\]</span></p>
+<p>That is not the share of the entire reference population that is employed. To get that, we also need to know what share of the population is in the labor force. This gives us a simple relationship:</p>
+<p><span class="math display">\[
+\text{EPR} = \text{LFPR} \times (1 - \text{UR})
+\]</span></p>
+<p>In terms of the underlying counts:</p>
+<p><span class="math display">\[
+\frac{E}{P}
 =
-\frac{\exp(\delta_j)}
-{\sum_{k=0}^{J}\exp(\delta_k)}
+\frac{E+U}{P}
+\times
+\frac{E}{E+U}
 \]</span></p>
-<p>This is the <strong>simple logit model</strong>.</p>
-<hr>
+<p>The labor force participation rate tells us what share of the population is in the labor force. The term <span class="math inline">\(1-\text{UR}\)</span> tells us what share of the labor force is employed. Together, they give us the employment-population ratio.</p>
+<p>This is why the three measures are related but not interchangeable. The unemployment rate is not the opposite of the employment-population ratio because the two rates use different denominators.</p>
 </section>
-<section id="the-unintuitive-part-the-red-bus-blue-bus-problem" class="level2">
-<h2 class="anchored" data-anchor-id="the-unintuitive-part-the-red-bus-blue-bus-problem">8. The Unintuitive Part: The Red Bus / Blue Bus Problem</h2>
-<p>Despite its mathematical beauty, Simple Logit suffers from a major flaw known as <strong>IIA</strong>.</p>
-<p>Consider the ratio of market shares between any two products <span class="math inline">\(j\)</span> and <span class="math inline">\(k\)</span>:</p>
-<p><span class="math display">\[\frac{s_j}{s_k} = \frac{\exp(\delta_j)}{\exp(\delta_k)}\]</span></p>
-<p>Notice that this ratio depends <strong>only</strong> on products <span class="math inline">\(j\)</span> and <span class="math inline">\(k\)</span>, completely unaffected by any third option in the market.</p>
-<p>Suppose commuters can choose between:</p>
-<ul>
-<li>Car: 50%</li>
-<li>Red Bus: 50%</li>
-</ul>
-<p>Now suppose a new Blue Bus is introduced. The Blue Bus is almost identical to the Red Bus.</p>
-<p>The simple logit model predicts that the three options become approximately:</p>
-<p><span class="math display">\[
-\text{Car}=33.3\%,\qquad
-\text{Red Bus}=33.3\%,\qquad
-\text{Blue Bus}=33.3\%
-\]</span></p>
-<p>This is unintuitive. Since Blue Bus is almost identical to Red Bus, we would expect it to take mostly passengers away from Red Bus rather than equally reducing the probability of choosing a car.</p>
-<p>The problem comes from the logit’s assumption that the relative odds between two alternatives do not depend on a third alternative.</p>
-<p>This example shows that a model can be mathematically elegant while still making unrealistic behavioral assumptions.</p>
-<hr>
+<section id="when-unemployment-falls-but-no-one-gets-a-job" class="level2">
+<h2 class="anchored" data-anchor-id="when-unemployment-falls-but-no-one-gets-a-job">4. When Unemployment Falls but No One Gets a Job</h2>
+<p>A falling unemployment rate does not always mean that someone has found a job. For example, imagine a population of 100 people: 60 are employed, 5 are unemployed, and 35 are outside the labor force.</p>
+<p>Now suppose one unemployed person stops actively looking for work after a long search. Since they are no longer actively looking, they are no longer counted as unemployed under the standard definition. They move out of the labor force, even though they have not found a job.</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Measure</th>
+<th>Before</th>
+<th>After</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Employed</td>
+<td>60</td>
+<td>60</td>
+</tr>
+<tr class="even">
+<td>Unemployed</td>
+<td>5</td>
+<td>4</td>
+</tr>
+<tr class="odd">
+<td>Not in the labor force</td>
+<td>35</td>
+<td>36</td>
+</tr>
+<tr class="even">
+<td>Unemployment rate</td>
+<td>7.69%</td>
+<td>6.25%</td>
+</tr>
+<tr class="odd">
+<td>Employment-population ratio</td>
+<td>60%</td>
+<td>60%</td>
+</tr>
+<tr class="even">
+<td>Labor force participation rate</td>
+<td>65%</td>
+<td>64%</td>
+</tr>
+</tbody>
+</table>
+<p>The unemployment rate falls from 7.69% to 6.25%, but the number of people with jobs stays at 60. The employment-population ratio is unchanged, while the labor force participation rate falls from 65% to 64% because fewer people are in the labor force.</p>
+<p>This example shows why the participation rate adds useful context. The unemployment rate tells us what is happening among people in the labor force, while the participation rate can reveal when people are entering or leaving it. Looking at all three measures gives us a fuller picture of what is happening in the labor market.</p>
 </section>
-<section id="a-better-model-nested-logit" class="level2">
-<h2 class="anchored" data-anchor-id="a-better-model-nested-logit">9. A Better Model: Nested Logit</h2>
-<p>To fix IIA without losing model tractability, the <strong>Nested Logit Model</strong> groups similar products into “nests” <span class="math inline">\(g \in \{1, \dots, G\}\)</span> (e.g., placing Red Bus and Blue Bus together in a “Bus” nest).</p>
-<p>Taste shocks <span class="math inline">\(\varepsilon_{ij}\)</span> are allowed to be correlated within the same nest, governed by the <strong>nesting parameter</strong> <span class="math inline">\(\lambda \in (0, 1]\)</span>: * <span class="math inline">\(\lambda = 1\)</span>: No correlation (collapses back to Simple Logit). * <span class="math inline">\(\lambda \to 0\)</span>: Strong correlation; products in the nest are near-perfect substitutes.</p>
-<p>The Nested Logit Estimating Equation：</p>
-<p>Decomposing choice into nest selection and within-nest product selection modifies our OLS regression equation by adding <strong>one extra regressor</strong>:</p>
-<p><span class="math display">\[\ln\left(\frac{s_j}{s_0}\right) = \mathbf{X}_j \beta - \alpha p_j + (1 - \lambda) \ln(s_{j|g})\]</span></p>
-<p>Where <span class="math inline">\(s_{j|g} = \frac{s_j}{\sum_{k \in g} s_k}\)</span> is product <span class="math inline">\(j\)</span>’s market share <em>within</em> its own nest <span class="math inline">\(g\)</span>. The coefficient on <span class="math inline">\(\ln(s_{j|g})\)</span> directly estimates <span class="math inline">\((1 - \lambda)\)</span>.</p>
-<hr>
-</section>
-<section id="takeaway" class="level2">
-<h2 class="anchored" data-anchor-id="takeaway">10. Takeaway</h2>
-<p>The logit is more than just a formula. The <strong>logit function</strong> transforms probability into log-odds, making a bounded probability compatible with a linear specification. The <strong>logit model</strong> uses this transformation to describe binary or discrete choices, while <strong>logit regression</strong> estimates the model’s coefficients from data.</p>
-<p>The same framework can be extended to consumer choice and other economic applications. However, the Red Bus / Blue Bus example reminds us that a convenient mathematical model may impose strong assumptions about how people substitute between alternatives.</p>
-<hr>
+<section id="conclusion" class="level2">
+<h2 class="anchored" data-anchor-id="conclusion">5. Conclusion</h2>
+<p>Economists track all three measures because each answers a different question. The unemployment rate tells us how many people in the labor force are unemployed. The employment-population ratio tells us what share of the reference population is working. The labor force participation rate tells us what share is working or actively looking for work.</p>
+<p>It’s best to read them together. A falling unemployment rate can be good news when it reflects people finding jobs. But the rate alone cannot tell us whether that is what happened. If the employment-population ratio stays the same while participation falls, the story may be different from what the headline unemployment rate suggests.</p>
 
 
 </section>

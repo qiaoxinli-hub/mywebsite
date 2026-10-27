@@ -95,12 +95,10 @@ Overall, Some categories, such as Food & Drink, perform relatively strongly on b
 
 ## 6. What Can an Event Organizer Take Away?
 
-The data suggest several practical considerations for event organizers.
+**Based on my analysis, I would recommend organizing Food & Drink or Sports & Fitness events.** Both categories received relatively high average upvotes on Do215. Food & Drink events averaged about 30 upvotes and 29 reported attendees, while Sports & Fitness events averaged around 20 upvotes and 12.8 reported attendees. These numbers suggest that online interest can translate into in-person attendance, especially for Food & Drink events.
 
-First, **weekends are much busier than weekdays** on Do215. A weekend event may give organizers access to more people with free time, but it also means competing with many more events. If the main goal is to avoid a crowded event market, a weekday date may offer a different competitive environment.
+Also, as data shown shown below, **Food & Drink** events made up only 4.8% of all listings that week, and **Sports & Fitness** was also a relatively small category. This may mean less competition compared to other kinds of events.
 
-Second, **event categories are not evenly represented**. Theatre & Performing Arts and Live Music make up a large share of the listings, while categories such as Food & Drink, Comedy, and Sports & Fitness appear less frequently. This does not necessarily mean that smaller categories have lower demand, but it shows that organizers should consider both the level of competition and the type of audience they want to reach.
+**For the timing, I would recommend Saturday**, which had 259 listings, the most of any day in my one-week sample. People who work or study during the week may have more time to attend events on Saturdays. Sunday may be less suitable for late or lengthy events, as some people use it to prepare for the week ahead. 
 
-Third, **online interest and reported attendance tell different stories**. Live Music events, for example, receive relatively high numbers of upvotes but have much lower reported attendance on average. In contrast, Food & Drink events perform relatively well on both measures. This suggests that organizers should not rely on online attention alone when evaluating audience interest.
-
-For an organizer, the main takeaway is to use Do215 as a **market-monitoring tool**. Before planning an event, an organizer could compare the number of competing events across different days, examine which categories are already crowded, and look at both upvotes and reported attendee counts for similar events. This information can help organizers make more informed decisions about when to schedule an event and what type of event to offer, even though it cannot predict attendance or guarantee success.
+Finally, I would recommend event organizers to **list their event on Do215 ahead of time and track its upvotes and attendee numbers**. Upvotes can show whether people are interested, while registrations or ticket sales can help me plan supplies and staffing. After the event, they can compare these figures with actual attendance to see what worked and what they could improve next time.
