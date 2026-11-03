@@ -5,6 +5,9 @@ categories:
   - Statistics Methods
   - Simulation
   - Interactive Data Visualization
+
+resources:
+  - "figures/**"
 ---
 
 ```{r setup, include=FALSE}
@@ -192,31 +195,28 @@ for (figure_name in figure_files) {
 }
 ```
 
+![Front page](frontpage.png){width="800px"}
+
 ## 1. Why do we need simulation and resampling?
 
-Many questions in economics are about populations. For example, we may want to know the average salary of all employees in a department or whether a policy improves people's income. Ideally, we would collect data from everyone in the population. In reality, this is often too expensive or simply impossible. We usually have to use a sample to learn about the whole population.
+Many questions in economics are about populations. For example, we may want to know the average salary of all employees in a department or whether a policy improves people's income. Ideally, we would collect data from everyone in the population. In reality, however, this is often too expensive or simply impossible. We usually have to use a sample to estimate characteristics of the whole population.
 
 But a sample only provides part of the picture. **How can we tell whether our estimates are reliable? How can we decide whether an observed difference is statistically meaningful?**
 
-This is where simulation and resampling become useful. In this post, I use computer simulations to show how two important methods in econometrics—confidence intervals and hypothesis testing—work.
+This is where simulation and resampling become useful. In this post, I use **computer simulations to show how two important methods(confidence intervals and hypothesis testing) in econometrics work**.
 
-I begin with a simulated department salary survey and use bootstrap resampling to construct a confidence interval from one sample. I then repeat the sampling process to see how often confidence intervals contain the true population mean. Finally, I simulate 10,000 coin-flipping experiments to build a null distribution and explain how rejection regions and p-values help us make statistical decisions. The table below summarizes these experiments.
-
-| Experiment | Data-generating process | Sample size and repetitions | What it helps us understand |
-|:--|:--|:--|:--|
-| **1. Bootstrap confidence interval** | Normal distribution, with $\mu = 100$ and $\sigma = 20$ | 25 employees; 1,000 bootstrap resamples | How to estimate uncertainty and construct a percentile confidence interval from one sample |
-| **2. Confidence interval coverage** | The same Normal population as above | 10,000 repeated samples for each sample size: 10, 25, 50, and 100 | How often confidence intervals contain the true population mean |
-| **3. Coin-flip hypothesis test** | $X \sim \text{Binomial}(100, 0.5)$ under the null hypothesis | 10,000 simulated experiments; 100 flips per experiment; 62 observed heads | How a null distribution, rejection region, and p-value help us make a decision |
+First, I use a simulated department salary survey to show how to construct a bootstrap confidence interval from one sample. I then use repeated sampling to examine how often confidence intervals contain the true population mean. Finally, I simulate 10,000 coin-flipping experiments to build a null distribution and explain how rejection regions and p-values help us make statistical decisions.The table below summarizes the three experiments.
 
 ## 2. Constructing a bootstrap confidence interval from one sample
 
-Suppose we want to estimate the average salary of employees in a department, and salaries are measured in thousands of dollars. In this simulation, I generate a sample of 25 employees from a Normal population with a known mean of $\mu = 100$ and a standard deviation of $\sigma = 20$.
 
-The mean of our sample is **`r sprintf("%.2f", sample_mean)`**, and its standard deviation is **`r sprintf("%.2f", sample_sd)`**. In a real study, we would not know the true population mean. Here, because the data are simulated, we know it and can use it to check how well our methods work. With only one sample, however, we still do not know how much the sample mean might change if we selected a different group of 25 employees. Bootstrap resampling helps us study this uncertainty without collecting another sample from the population.
+Suppose we want to estimate the average salary of employees in a department and salary values are measured in thousands of dollars. It's hard for us to have information about every employee, so we randomly select 25 employees from the department. Besides, we know their salaries follow a Normal distribution with a true mean of $\mu = 100$ and a standard deviation of $\sigma = 20$. 
 
-The idea behind the **bootstrap** is simple. We treat the 25 observed salaries as a stand-in for the population and draw 1,000 new samples from these observations. Each new sample also contains 25 observations, and we calculate its mean. Because we sample with replacement, the same salary may appear more than once in a bootstrap sample, while another salary may not appear at all.
+The mean of our sample is **`r sprintf("%.2f", sample_mean)`**, and its standard deviation is **`r sprintf("%.2f", sample_sd)`**. The problem is that we only have one sample. We don't know how much the sample mean might change if we selected a different group of 25 employees. To solve it, we can use **bootstrap** to study this uncertainty without collecting another sample from the population.
 
-The 1,000 bootstrap means form a **bootstrap distribution**. The standard deviation of these means is the bootstrap standard error, which is **`r sprintf("%.2f", bootstrap_se)`**. We use the 5th, 2.5th, and 0.5th percentiles, together with their corresponding upper percentiles, to construct 90%, 95%, and 99% percentile confidence intervals.
+This is how **bootstrap** works. We treat the 25 observed salaries as a stand-in for the population,and then draw 1,000 new samples from these 25 observations. Each new sample also contains 25 observations, and we calculate its mean. Because we sample with replacement, the same salary may appear more than once in a bootstrap sample, while another salary may not appear at all.
+
+The 1,000 bootstrap means form a **bootstrap distribution**. The standard deviation of these bootstrap means is the bootstrap standard error, which is **`r sprintf("%.2f", bootstrap_se)`**. We use the 5th, 2.5th, and 0.5th percentiles and their corresponding upper percentiles to construct 90%, 95%, and 99% percentile confidence intervals.
 
 The table below reports the confidence intervals from our original sample.
 
@@ -244,9 +244,7 @@ A higher confidence level produces a wider interval because it needs to include 
 
 For this one sample, the 95% bootstrap confidence interval **`r if (bootstrap_ci_95$lower <= POP_MEAN && POP_MEAN <= bootstrap_ci_95$upper) "contains" else "does not contain"`** the known population mean of 100. This is useful for checking the method in our simulation. In a real application, however, the true population mean is unknown, so we cannot directly check whether one estimated interval contains it.
 
-## 3. What affects the bootstrap distribution?
-
-### Does the number of bootstrap resamples matter?
+## 3. Does the number of bootstrap resamples matter?
 
 The next graph keeps the original sample of 25 salaries fixed but changes the number of bootstrap resamples. The script compares 250, 1,000, and 5,000 resamples. Use the dropdown menu to view all three distributions or one at a time.
 
@@ -260,19 +258,6 @@ The next graph keeps the original sample of 25 salaries fixed but changes the nu
 
 Increasing the number of resamples does not give us more original data or change the sample of 25 employees. Instead, it gives us more bootstrap means to estimate the bootstrap distribution. With more resamples, the histogram generally gives a smoother picture of that distribution. The vertical lines mark the original sample mean and the true population mean.
 
-### What happens when the population mean and standard deviation change?
-
-The bootstrap distribution also depends on the population from which the original sample is drawn. To illustrate this, the script compares nine Normal populations, using means of 80, 100, and 120 and standard deviations of 10, 20, and 30. For each combination, it generates a sample of 25 observations and then draws 1,000 bootstrap samples from that sample.
-
-Use the dropdown menu to compare the distributions. Changing the population mean shifts the distribution, while changing the standard deviation affects how spread out it is. This gives us a visual sense of how the underlying data can affect the uncertainty we see in a bootstrap distribution.
-
-<iframe
-  src="figures/bootstrap_parameters.html"
-  title="Bootstrap distributions under different Normal population parameters"
-  width="100%"
-  height="680"
-  style="border: 0; display: block; width: 96vw; max-width: 1800px; position: relative; left: 50%; transform: translateX(-50%);">
-</iframe>
 
 ## 4. What does a 95% confidence interval mean?
 
@@ -290,21 +275,10 @@ $$
 
 For example, when the sample size is 25, the standard error is $20 / \sqrt{25} = 4$. For a 95% confidence interval, the critical value is 1.96, so the interval extends approximately $1.96 \times 4 = 7.84$ units on either side of the sample mean.
 
-After repeating the process 10,000 times, we calculate the **empirical coverage rate**: the percentage of confidence intervals that contain the true population mean. For a sample size of 25, **`r format(coverage_n25$covered_intervals, big.mark = ",")` out of 10,000 intervals** contain the true mean. This gives an empirical coverage rate of **`r sprintf("%.2f%%", coverage_n25$coverage_percent)`**.
+After repeating the process 10,000 times, we calculate the empirical coverage rate: the percentage of confidence intervals that contain the true population mean. For a sample size of 25, **`r format(coverage_n25$covered_intervals, big.mark = ",")` out of 10,000 intervals** contain the true mean. This gives an empirical coverage rate of **`r sprintf("%.2f%%", coverage_n25$coverage_percent)`**. Therefore, when we repeatedly draw new samples and construct 95% confidence intervals using the same method, approximately 95% of those intervals contain the true population mean.
 
-The result should be close to 95%, although it may not be exactly 95% because we only run a finite number of simulations. This is what the experiment is designed to show: when we repeatedly draw new samples and construct 95% confidence intervals in the same way, approximately 95% of those intervals contain the true population mean.
+The simulation also allows us to compare different confidence levels. The table below reports the empirical coverage rates and average interval widths for all three confidence levels across the four sample sizes.
 
-The HTML table below summarizes the 95% coverage results for the four sample sizes.
-
-<iframe
-  src="figures/coverage_simulation.html"
-  title="Repeated-simulation coverage summary for 95 percent confidence intervals"
-  width="100%"
-  height="440"
-  style="border: 0; display: block; width: 96vw; max-width: 1800px; position: relative; left: 50%; transform: translateX(-50%);">
-</iframe>
-
-The simulation also lets us compare different confidence levels. The table below reports the empirical coverage rates and average interval widths for all three confidence levels across the four sample sizes.
 
 ```{r coverage-all-levels-table, echo=FALSE}
 coverage_display <- data.frame(
@@ -318,11 +292,9 @@ coverage_display <- data.frame(
 knitr::kable(coverage_display, align = "r")
 ```
 
-The empirical coverage rates should be close to their corresponding confidence levels. For example, 99% intervals should contain the true mean more often than 95% intervals, while 90% intervals should contain it less often. The interval width also changes with sample size. Larger samples give us smaller standard errors and narrower intervals, while the long-run coverage stays close to the chosen confidence level.
-
 ## 5. Hypothesis testing: rejection regions and p-values
 
-### 5.1 Setting up a hypothesis test
+### 5.1  Hypothesis testing
 
 In the previous sections, we used simulation to understand how confidence intervals work. Now, let's look at another important question in econometrics: **how can we use sample data to test a claim about a population?**
 
@@ -330,40 +302,45 @@ Imagine flipping a coin 100 times and getting 62 heads. Is this result just a re
 
 To answer this question, we set up two hypotheses:
 
-- **Null hypothesis ($H_0$):** $p = 0.5$. The coin is fair.
-- **Alternative hypothesis ($H_1$):** $p \neq 0.5$. The probability of getting heads is different from 0.5.
+- **Null hypothesis ($H_0$):**  $p = 0.5$ (The coin is fair)
+- **Alternative hypothesis ($H_1$):**  $p \neq 0.5$ (The probability of heads is different from 0.5)
 
-Under the null hypothesis, the number of heads in 100 flips follows a Binomial distribution:
+Under the null hypothesis, we know the number of heads in 100 flips follows a Binomial distribution
+:
 
 $$
 X \sim \text{Binomial}(100, 0.5).
 $$
 
+
 The expected number of heads is:
+
 
 $$
 E(X) = np = 100 \times 0.5 = 50.
 $$
 
-If the coin is fair, we would expect around 50 heads in 100 flips. Random variation means that we will not always get exactly 50, though.
 
-To see what outcomes we might expect from a fair coin, I simulate 10,000 experiments, with 100 coin flips in each experiment. The distribution of the simulated head counts is called the **null distribution**. It shows how the number of heads would vary if the null hypothesis were true.
+In other words, if the coin is fair, we would expect to get around 50 heads in 100 flips. However, random variation means that we will not always get exactly 50.
 
-Our observed result is 62 heads, which is 12 more than the expected number of 50. Since we are conducting a two-sided test, we also consider results that are equally far from 50 in the opposite direction. Therefore, outcomes of 38 or fewer heads and 62 or more heads are both considered at least as extreme as our observed result.
+To understand what outcomes we might expect from a fair coin, I simulate 10,000 experiments, with 100 coin flips in each experiment. The distribution of the simulated head counts is called the null distribution. It shows how the number of heads would vary if the null hypothesis were true.
 
-Based on the 10,000 simulations, the estimated two-sided p-value is **`r sprintf("%.4f", monte_carlo_p)`**. I also calculate the exact p-value using R's `binom.test()` function, which is **`r sprintf("%.4f", exact_two_sided_p)`**. The two values should be close, although they may differ slightly because the simulation uses a finite number of repetitions.
+Our observed result is 62 heads, which is 12 more than the expected number of 50. Since we are conducting a two-sided test, we also need to consider results that are equally far from 50 in the opposite direction. Therefore, outcomes of 38 or fewer heads and 62 or more heads are both considered at least as extreme as our observed result.
 
-The simulation estimate uses the adjustment `(extreme_count + 1) / (B_NULL + 1)`. This avoids reporting a Monte Carlo p-value of exactly zero when none of the simulated experiments is as extreme as the observed result.
+Based on the 10,000 simulations, the estimated two-sided p-value is r sprintf("%.4f", monte_carlo_p). I also calculate the exact p-value using R's binom.test() function, which is r sprintf("%.4f", exact_two_sided_p). The two values should be close, although they may differ slightly because the simulation uses a finite number of repetitions.
 
-### 5.2 Understanding the rejection region
+One small detail worth mentioning is that I use the adjustment `(extreme_count + 1) / (B_NULL + 1)` to estimate the p-value. This avoids getting a simulated p-value of exactly zero when none of the simulations produces an equally extreme result.
+
+### 5.2 Rejection region
 
 The null distribution tells us what outcomes are possible if the coin is fair. But how do we decide whether an observed result is unusual enough to reject the null hypothesis?
 
-This is where the **rejection region** comes in. Before evaluating the observed result, we choose a significance level, $\alpha$. It sets the target Type I error rate: the probability of rejecting a true null hypothesis. For example, setting $\alpha = 0.05$ means we use a 5% significance level.
+This is where the rejection region comes in. Before looking at the observed result, we choose a significance level, $\alpha$, which sets the maximum Type I error rate we are willing to accept as our target. A Type I error occurs when we reject a true null hypothesis. For example, setting $\alpha = 0.05$ means we use a 5% significance level.
 
-Using the exact $\text{Binomial}(100, 0.5)$ distribution, the script calculates the lower and upper critical values for significance levels of 10%, 5%, and 1%. These values define the rejection regions: if the observed number of heads falls in either tail beyond the critical values, we reject the null hypothesis.
+Using the exact $\text{Binomial}(100, 0.5)$ distribution, we calculate the lower and upper critical values for significance levels of 10%, 5%, and 1%. These critical values define the rejection regions: if the observed number of heads falls outside the critical bounds, we reject the null hypothesis.
 
 The table below summarizes the critical values and the actual probability of falling in each rejection region when the coin is fair.
+
 
 ```{r rejection-critical-values-table, echo=FALSE}
 critical_values_display <- data.frame(
@@ -379,19 +356,17 @@ critical_values_display <- data.frame(
 knitr::kable(critical_values_display, align = "r")
 ```
 
-At the 5% significance level, the lower critical value is **`r critical_05$lower_critical`** and the upper critical value is **`r critical_05$upper_critical`**. Therefore, we reject the null hypothesis when the number of heads is at or below the lower critical value, or at or above the upper critical value. Our observed result of 62 heads falls inside this rejection region, so we reject $H_0$ at the 5% level.
 
-The actual rejection probability may be smaller than 5%. In this case, it is **`r sprintf("%.2f%%", 100 * critical_05$actual_null_rejection_probability)`**. This happens because the number of heads is a discrete count, so we cannot always choose critical values that make the rejection probability exactly equal to the target. The code therefore uses the exact Binomial distribution to find critical values whose actual Type I error rate does not exceed the chosen significance level.
+At the 5% significance level, the lower critical value is **`r critical_05$lower_critical`** and the upper critical value is **`r critical_05$upper_critical`**. Therefore, we reject the null hypothesis when the number of heads is 39 or fewer, or 61 or more. Our observed result of 62 heads falls inside this rejection region, so we reject $H_0$ at the 5% level.
 
-### 5.3 Understanding the p-value
 
-The rejection region gives us a decision rule based on a significance level chosen in advance. The **p-value** looks at the same question from a different angle. Instead of starting with a significance level, we start with the observed result of 62 heads and ask: *If the coin were actually fair, how likely would we be to observe 62 or more heads, or 38 or fewer heads?*
+### 5.3 P-value: measure how unusual the observed result is
 
-This is what the two-sided p-value measures. In our example, the exact p-value is **`r sprintf("%.4f", exact_two_sided_p)`**. Since it is smaller than 0.05, the observed result would be unusual under the assumption of a fair coin. We therefore reject the null hypothesis at the 5% significance level.
+The p-value looks at the same problem from a different angle. Instead of starting with a significance level, we start with our observed result of 62 heads and ask: If the coin were actually fair, how likely would we be to observe 62 or more heads
+
+In our example, the exact p-value is **`r sprintf("%.4f", exact_two_sided_p)`**, which is below 0.05.  Since it is smaller than 0.05, the observed result is unlikely to occur by chance alone under the assumption of a fair coin. We therefore reject the null hypothesis at the 5% significance level.
 
 The interactive graph below brings the rejection region and p-value together. Use the dropdown menu to switch between significance levels of 10%, 5%, and 1%.
-
-The blue bars show outcomes outside the rejection region. The red bars show outcomes inside the rejection region but outside the p-value tails. The orange bars show outcomes at least as extreme as the observed result of 62 heads. The dashed red lines mark the critical boundaries, while the dotted purple lines mark the p-value cutoffs.
 
 <iframe
   src="figures/null_distribution.html"
@@ -401,14 +376,12 @@ The blue bars show outcomes outside the rejection region. The red bars show outc
   style="border: 0; display: block; width: 96vw; max-width: 1800px; position: relative; left: 50%; transform: translateX(-50%);">
 </iframe>
 
-One important thing to remember is that the p-value is **not the probability that the null hypothesis is true**. It is calculated under the assumption that the null hypothesis is true. A small p-value tells us that the observed result would be unusual if the coin were fair, but it does not prove that the coin is biased.
+One important thing to remember is that the p-value is not the probability that the null hypothesis is true. It is calculated under the assumption that the null hypothesis is true. A small p-value tells us that the observed result would be unusual if the coin were fair, but it does not prove that the coin is biased.
 
-The rejection region and the p-value lead to the same decision, but they approach it from different directions. The rejection region tells us whether the observed result crosses a critical boundary, while the p-value tells us how extreme that result is under the null hypothesis. At a 5% significance level, both approaches lead us to reject the hypothesis that the coin is fair.
+It is also worth noticing that the rejection region and the p-value lead to the same decision. The rejection region tells us whether the observed result crosses a critical boundary, while the p-value tells us how extreme that result is under the null hypothesis. At a 5% significance level, both approaches lead us to reject the hypothesis that the coin is fair.
 
-## 6. What do these results tell us?
+## 6. What Do These Results Tell Us?
 
-These simulations show how statistical inference works in practice. We started with one sample of salaries and used bootstrap resampling to estimate the uncertainty around the sample mean. By repeating the sampling process 10,000 times, we could also check how often a 95% confidence interval contains the true population mean.
+Through these simulations, we can see how statistical inference works in practice. We started with a single sample of salaries and used bootstrap resampling to estimate the uncertainty around the sample mean. By repeating the sampling process thousands of times, we also saw why a 95% confidence interval contains the true population mean approximately 95% of the time.
 
-The coin-flipping experiment takes us from estimation to hypothesis testing. By simulating 10,000 experiments under the null hypothesis, we can compare our observed result with the outcomes expected from a fair coin. The rejection region and the p-value help us judge whether the result is unusual enough to reject the null hypothesis.
-
-What makes simulation useful is that it lets us see these ideas rather than only read their definitions or formulas. We can watch estimates vary across samples, see how confidence intervals behave, and understand how a statistical test turns an observed result into a decision. These are the same ideas we use when working with sample data to study real economic questions.
+The coin-flipping experiment takes this idea a step further. By simulating 10,000 experiments under the null hypothesis, we can see how unusual our observed result is compared with what we would expect from a fair coin. Both the rejection region and the p-value help us make this decision, but they approach the question from different directions.

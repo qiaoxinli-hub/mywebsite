@@ -1,0 +1,8 @@
+"item","value"
+"Observed number of heads","62"
+"Null expectation","50"
+"Monte Carlo repetitions","10000"
+"Monte Carlo two-sided p-value","0.02360"
+"Exact two-sided binomial p-value","0.02098"
+"Monte Carlo standard error of p-value","0.00152"
+"Decision at alpha = 0.05","Reject H0"

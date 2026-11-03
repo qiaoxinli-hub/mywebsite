@@ -1,0 +1,875 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.38">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="dcterms.date" content="2026-11-02">
+
+<title>Simulation, Bootstrap Confidence Intervals, and Hypothesis Testing – Student Name</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../../">
+<script src="../../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../../site_libs/bootstrap/bootstrap-6b423f165eeea3787de40cb4f8e821c3.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="../../../styles.css">
+</head>
+
+<body class="nav-fixed fullcontent quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../../../index.html">
+    <span class="navbar-title">Student Name</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../../index.html"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../bio.html"> 
+<span class="menu-text">About Me</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../resume.html"> 
+<span class="menu-text">Resume</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../blog/index.html"> 
+<span class="menu-text">Blog</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Simulation, Bootstrap Confidence Intervals, and Hypothesis Testing</h1>
+  <div class="quarto-categories">
+    <div class="quarto-category">Statistics Methods</div>
+    <div class="quarto-category">Simulation</div>
+    <div class="quarto-category">Interactive Data Visualization</div>
+  </div>
+  </div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">November 2, 2026</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="frontpage.png" class="img-fluid figure-img" width="800"></p>
+<figcaption>Front page</figcaption>
+</figure>
+</div>
+<section id="why-do-we-need-simulation-and-resampling" class="level2">
+<h2 class="anchored" data-anchor-id="why-do-we-need-simulation-and-resampling">1. Why do we need simulation and resampling?</h2>
+<p>Many questions in economics are about populations. For example, we may want to know the average salary of all employees in a department or whether a policy improves people’s income. Ideally, we would collect data from everyone in the population. In reality, however, this is often too expensive or simply impossible. We usually have to use a sample to estimate characteristics of the whole population.</p>
+<p>But a sample only provides part of the picture. <strong>How can we tell whether our estimates are reliable? How can we decide whether an observed difference is statistically meaningful?</strong></p>
+<p>This is where simulation and resampling become useful. In this post, I use <strong>computer simulations to show how two important methods(confidence intervals and hypothesis testing) in econometrics work</strong>.</p>
+<p>First, I use a simulated department salary survey to show how to construct a bootstrap confidence interval from one sample. I then use repeated sampling to examine how often confidence intervals contain the true population mean. Finally, I simulate 10,000 coin-flipping experiments to build a null distribution and explain how rejection regions and p-values help us make statistical decisions.The table below summarizes the three experiments.</p>
+</section>
+<section id="constructing-a-bootstrap-confidence-interval-from-one-sample" class="level2">
+<h2 class="anchored" data-anchor-id="constructing-a-bootstrap-confidence-interval-from-one-sample">2. Constructing a bootstrap confidence interval from one sample</h2>
+<p>Suppose we want to estimate the average salary of employees in a department and salary values are measured in thousands of dollars. It’s hard for us to have information about every employee, so we randomly select 25 employees from the department. Besides, we know their salaries follow a Normal distribution with a true mean of <span class="math inline">\(\mu = 100\)</span> and a standard deviation of <span class="math inline">\(\sigma = 20\)</span>.</p>
+<p>The mean of our sample is <strong>104.07</strong>, and its standard deviation is <strong>20.62</strong>. The problem is that we only have one sample. We don’t know how much the sample mean might change if we selected a different group of 25 employees. To solve it, we can use <strong>bootstrap</strong> to study this uncertainty without collecting another sample from the population.</p>
+<p>This is how <strong>bootstrap</strong> works. We treat the 25 observed salaries as a stand-in for the population,and then draw 1,000 new samples from these 25 observations. Each new sample also contains 25 observations, and we calculate its mean. Because we sample with replacement, the same salary may appear more than once in a bootstrap sample, while another salary may not appear at all.</p>
+<p>The 1,000 bootstrap means form a <strong>bootstrap distribution</strong>. The standard deviation of these bootstrap means is the bootstrap standard error, which is <strong>4.03</strong>. We use the 5th, 2.5th, and 0.5th percentiles and their corresponding upper percentiles to construct 90%, 95%, and 99% percentile confidence intervals.</p>
+<p>The table below reports the confidence intervals from our original sample.</p>
+<div class="cell">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: right;">Confidence level</th>
+<th style="text-align: right;">Lower endpoint</th>
+<th style="text-align: right;">Upper endpoint</th>
+<th style="text-align: right;">Interval width</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">90%</td>
+<td style="text-align: right;">97.83</td>
+<td style="text-align: right;">111.08</td>
+<td style="text-align: right;">13.25</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">95%</td>
+<td style="text-align: right;">96.39</td>
+<td style="text-align: right;">112.31</td>
+<td style="text-align: right;">15.92</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">99%</td>
+<td style="text-align: right;">94.30</td>
+<td style="text-align: right;">116.21</td>
+<td style="text-align: right;">21.91</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>A higher confidence level produces a wider interval because it needs to include more of the bootstrap distribution. In the interactive graph below, the dropdown menu lets you switch among the 90%, 95%, and 99% confidence intervals. The green bars show bootstrap means inside the selected interval, while the red bars show values outside it. The vertical lines mark the original sample mean and the true population mean.</p>
+<iframe src="figures/bootstrap_confidence_interval.html" title="Bootstrap distribution with selectable confidence intervals" width="100%" height="680" style="border: 0; display: block; width: 96vw; max-width: 1800px; position: relative; left: 50%; transform: translateX(-50%);">
+</iframe>
+<p>For this one sample, the 95% bootstrap confidence interval <strong>contains</strong> the known population mean of 100. This is useful for checking the method in our simulation. In a real application, however, the true population mean is unknown, so we cannot directly check whether one estimated interval contains it.</p>
+</section>
+<section id="does-the-number-of-bootstrap-resamples-matter" class="level2">
+<h2 class="anchored" data-anchor-id="does-the-number-of-bootstrap-resamples-matter">3. Does the number of bootstrap resamples matter?</h2>
+<p>The next graph keeps the original sample of 25 salaries fixed but changes the number of bootstrap resamples. The script compares 250, 1,000, and 5,000 resamples. Use the dropdown menu to view all three distributions or one at a time.</p>
+<iframe src="figures/bootstrap_distribution.html" title="Bootstrap distributions under different numbers of resamples" width="100%" height="680" style="border: 0; display: block; width: 96vw; max-width: 1800px; position: relative; left: 50%; transform: translateX(-50%);">
+</iframe>
+<p>Increasing the number of resamples does not give us more original data or change the sample of 25 employees. Instead, it gives us more bootstrap means to estimate the bootstrap distribution. With more resamples, the histogram generally gives a smoother picture of that distribution. The vertical lines mark the original sample mean and the true population mean.</p>
+</section>
+<section id="what-does-a-95-confidence-interval-mean" class="level2">
+<h2 class="anchored" data-anchor-id="what-does-a-95-confidence-interval-mean">4. What does a 95% confidence interval mean?</h2>
+<p>A 95% confidence interval does not mean that there is a 95% probability that the true population mean is inside one particular interval. The population mean is fixed, but the sample we draw changes each time. As a result, the sample mean and the confidence interval also change from sample to sample.</p>
+<p>To understand this idea, we can repeat the sampling process many times and check how often the resulting intervals contain the true population mean.</p>
+<p>In this experiment, I simulate 10,000 independent samples for each of four sample sizes: 10, 25, 50, and 100. Each sample is drawn from the same Normal population, with a true mean of <span class="math inline">\(\mu = 100\)</span> and a standard deviation of <span class="math inline">\(\sigma = 20\)</span>. For every sample, I construct confidence intervals at three levels: 90%, 95%, and 99%. I then check whether each interval contains the true population mean of 100.</p>
+<p>Since we know the population standard deviation in this simulation, we can calculate the standard error as <span class="math inline">\(\sigma / \sqrt{n}\)</span>. The confidence interval is:</p>
+<p><span class="math display">\[
+\bar{x} \pm z_{1-\alpha/2}\frac{\sigma}{\sqrt{n}}.
+\]</span></p>
+<p>For example, when the sample size is 25, the standard error is <span class="math inline">\(20 / \sqrt{25} = 4\)</span>. For a 95% confidence interval, the critical value is 1.96, so the interval extends approximately <span class="math inline">\(1.96 \times 4 = 7.84\)</span> units on either side of the sample mean.</p>
+<p>After repeating the process 10,000 times, we calculate the empirical coverage rate: the percentage of confidence intervals that contain the true population mean. For a sample size of 25, <strong>9,522 out of 10,000 intervals</strong> contain the true mean. This gives an empirical coverage rate of <strong>95.22%</strong>. Therefore, when we repeatedly draw new samples and construct 95% confidence intervals using the same method, approximately 95% of those intervals contain the true population mean.</p>
+<p>The simulation also allows us to compare different confidence levels. The table below reports the empirical coverage rates and average interval widths for all three confidence levels across the four sample sizes.</p>
+<div class="cell">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<colgroup>
+<col style="width: 16%">
+<col style="width: 23%">
+<col style="width: 26%">
+<col style="width: 32%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: right;">Sample size</th>
+<th style="text-align: right;">Confidence level</th>
+<th style="text-align: right;">Empirical coverage</th>
+<th style="text-align: right;">Average interval width</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">90%</td>
+<td style="text-align: right;">89.98%</td>
+<td style="text-align: right;">20.81</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">95%</td>
+<td style="text-align: right;">94.87%</td>
+<td style="text-align: right;">24.79</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">99%</td>
+<td style="text-align: right;">98.91%</td>
+<td style="text-align: right;">32.58</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">25</td>
+<td style="text-align: right;">90%</td>
+<td style="text-align: right;">90.09%</td>
+<td style="text-align: right;">13.16</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">25</td>
+<td style="text-align: right;">95%</td>
+<td style="text-align: right;">95.22%</td>
+<td style="text-align: right;">15.68</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">25</td>
+<td style="text-align: right;">99%</td>
+<td style="text-align: right;">98.98%</td>
+<td style="text-align: right;">20.61</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">50</td>
+<td style="text-align: right;">90%</td>
+<td style="text-align: right;">89.58%</td>
+<td style="text-align: right;">9.30</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">50</td>
+<td style="text-align: right;">95%</td>
+<td style="text-align: right;">94.96%</td>
+<td style="text-align: right;">11.09</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">50</td>
+<td style="text-align: right;">99%</td>
+<td style="text-align: right;">99.11%</td>
+<td style="text-align: right;">14.57</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">100</td>
+<td style="text-align: right;">90%</td>
+<td style="text-align: right;">89.82%</td>
+<td style="text-align: right;">6.58</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">100</td>
+<td style="text-align: right;">95%</td>
+<td style="text-align: right;">94.89%</td>
+<td style="text-align: right;">7.84</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">100</td>
+<td style="text-align: right;">99%</td>
+<td style="text-align: right;">98.89%</td>
+<td style="text-align: right;">10.30</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+<section id="hypothesis-testing-rejection-regions-and-p-values" class="level2">
+<h2 class="anchored" data-anchor-id="hypothesis-testing-rejection-regions-and-p-values">5. Hypothesis testing: rejection regions and p-values</h2>
+<section id="hypothesis-testing" class="level3">
+<h3 class="anchored" data-anchor-id="hypothesis-testing">5.1 Hypothesis testing</h3>
+<p>In the previous sections, we used simulation to understand how confidence intervals work. Now, let’s look at another important question in econometrics: <strong>how can we use sample data to test a claim about a population?</strong></p>
+<p>Imagine flipping a coin 100 times and getting 62 heads. Is this result just a result of random chance, or does it suggest that the coin may be biased?</p>
+<p>To answer this question, we set up two hypotheses:</p>
+<ul>
+<li><strong>Null hypothesis (<span class="math inline">\(H_0\)</span>):</strong> <span class="math inline">\(p = 0.5\)</span> (The coin is fair)</li>
+<li><strong>Alternative hypothesis (<span class="math inline">\(H_1\)</span>):</strong> <span class="math inline">\(p \neq 0.5\)</span> (The probability of heads is different from 0.5)</li>
+</ul>
+<dl>
+<dt>Under the null hypothesis, we know the number of heads in 100 flips follows a Binomial distribution</dt>
+<dd>
+
+</dd>
+</dl>
+<p><span class="math display">\[
+X \sim \text{Binomial}(100, 0.5).
+\]</span></p>
+<p>The expected number of heads is:</p>
+<p><span class="math display">\[
+E(X) = np = 100 \times 0.5 = 50.
+\]</span></p>
+<p>In other words, if the coin is fair, we would expect to get around 50 heads in 100 flips. However, random variation means that we will not always get exactly 50.</p>
+<p>To understand what outcomes we might expect from a fair coin, I simulate 10,000 experiments, with 100 coin flips in each experiment. The distribution of the simulated head counts is called the null distribution. It shows how the number of heads would vary if the null hypothesis were true.</p>
+<p>Our observed result is 62 heads, which is 12 more than the expected number of 50. Since we are conducting a two-sided test, we also need to consider results that are equally far from 50 in the opposite direction. Therefore, outcomes of 38 or fewer heads and 62 or more heads are both considered at least as extreme as our observed result.</p>
+<p>Based on the 10,000 simulations, the estimated two-sided p-value is r sprintf(“%.4f”, monte_carlo_p). I also calculate the exact p-value using R’s binom.test() function, which is r sprintf(“%.4f”, exact_two_sided_p). The two values should be close, although they may differ slightly because the simulation uses a finite number of repetitions.</p>
+<p>One small detail worth mentioning is that I use the adjustment <code>(extreme_count + 1) / (B_NULL + 1)</code> to estimate the p-value. This avoids getting a simulated p-value of exactly zero when none of the simulations produces an equally extreme result.</p>
+</section>
+<section id="rejection-region" class="level3">
+<h3 class="anchored" data-anchor-id="rejection-region">5.2 Rejection region</h3>
+<p>The null distribution tells us what outcomes are possible if the coin is fair. But how do we decide whether an observed result is unusual enough to reject the null hypothesis?</p>
+<p>This is where the rejection region comes in. Before looking at the observed result, we choose a significance level, <span class="math inline">\(\alpha\)</span>, which sets the maximum Type I error rate we are willing to accept as our target. A Type I error occurs when we reject a true null hypothesis. For example, setting <span class="math inline">\(\alpha = 0.05\)</span> means we use a 5% significance level.</p>
+<p>Using the exact <span class="math inline">\(\text{Binomial}(100, 0.5)\)</span> distribution, we calculate the lower and upper critical values for significance levels of 10%, 5%, and 1%. These critical values define the rejection regions: if the observed number of heads falls outside the critical bounds, we reject the null hypothesis.</p>
+<p>The table below summarizes the critical values and the actual probability of falling in each rejection region when the coin is fair.</p>
+<div class="cell">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<colgroup>
+<col style="width: 15%">
+<col style="width: 27%">
+<col style="width: 27%">
+<col style="width: 30%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: right;">Significance level</th>
+<th style="text-align: right;">Reject when heads are at or below</th>
+<th style="text-align: right;">Reject when heads are at or above</th>
+<th style="text-align: right;">Actual rejection probability under H0</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">10%</td>
+<td style="text-align: right;">41</td>
+<td style="text-align: right;">59</td>
+<td style="text-align: right;">8.86%</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">5%</td>
+<td style="text-align: right;">39</td>
+<td style="text-align: right;">61</td>
+<td style="text-align: right;">3.52%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">1%</td>
+<td style="text-align: right;">36</td>
+<td style="text-align: right;">64</td>
+<td style="text-align: right;">0.66%</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>At the 5% significance level, the lower critical value is <strong>39</strong> and the upper critical value is <strong>61</strong>. Therefore, we reject the null hypothesis when the number of heads is 39 or fewer, or 61 or more. Our observed result of 62 heads falls inside this rejection region, so we reject <span class="math inline">\(H_0\)</span> at the 5% level.</p>
+</section>
+<section id="p-value-measure-how-unusual-the-observed-result-is" class="level3">
+<h3 class="anchored" data-anchor-id="p-value-measure-how-unusual-the-observed-result-is">5.3 P-value: measure how unusual the observed result is</h3>
+<p>The p-value looks at the same problem from a different angle. Instead of starting with a significance level, we start with our observed result of 62 heads and ask: If the coin were actually fair, how likely would we be to observe 62 or more heads</p>
+<p>In our example, the exact p-value is <strong>0.0210</strong>, which is below 0.05. Since it is smaller than 0.05, the observed result is unlikely to occur by chance alone under the assumption of a fair coin. We therefore reject the null hypothesis at the 5% significance level.</p>
+<p>The interactive graph below brings the rejection region and p-value together. Use the dropdown menu to switch between significance levels of 10%, 5%, and 1%.</p>
+<iframe src="figures/null_distribution.html" title="Simulated null distribution with rejection regions and p-value tails" width="100%" height="700" style="border: 0; display: block; width: 96vw; max-width: 1800px; position: relative; left: 50%; transform: translateX(-50%);">
+</iframe>
+<p>One important thing to remember is that the p-value is not the probability that the null hypothesis is true. It is calculated under the assumption that the null hypothesis is true. A small p-value tells us that the observed result would be unusual if the coin were fair, but it does not prove that the coin is biased.</p>
+<p>It is also worth noticing that the rejection region and the p-value lead to the same decision. The rejection region tells us whether the observed result crosses a critical boundary, while the p-value tells us how extreme that result is under the null hypothesis. At a 5% significance level, both approaches lead us to reject the hypothesis that the coin is fair.</p>
+</section>
+</section>
+<section id="what-do-these-results-tell-us" class="level2">
+<h2 class="anchored" data-anchor-id="what-do-these-results-tell-us">6. What Do These Results Tell Us?</h2>
+<p>Through these simulations, we can see how statistical inference works in practice. We started with a single sample of salaries and used bootstrap resampling to estimate the uncertainty around the sample mean. By repeating the sampling process thousands of times, we also saw why a 95% confidence interval contains the true population mean approximately 95% of the time.</p>
+<p>The coin-flipping experiment takes this idea a step further. By simulating 10,000 experiments under the null hypothesis, we can see how unusual our observed result is compared with what we would expect from a fair coin. Both the rejection region and the p-value help us make this decision, but they approach the question from different directions.</p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p><img src="../../..\images/UniversityofPennsylvania_FullLogo_RGB.png" class="img-fluid" width="100"></p>
+</div>   
+    <div class="nav-footer-center">
+<p>© 2026 Student Name</p>
+</div>
+    <div class="nav-footer-right">
+      &nbsp;
+    </div>
+  </div>
+</footer>
+
+
+
+
+</body></html>

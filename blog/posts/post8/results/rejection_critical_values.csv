@@ -1,0 +1,4 @@
+"alpha","lower_critical","upper_critical","actual_null_rejection_probability","observed_result_rejects"
+0.1,41,59,0.0886260801140677,TRUE
+0.05,39,61,0.0352002002177048,TRUE
+0.01,36,64,0.0066371205159261,FALSE
