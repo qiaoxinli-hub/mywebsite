@@ -2,6 +2,8 @@
 title: "Resume"
 ---
 
-Download my resume here:
+Download my updated CV:
 
-##  [Resume PDF](files/CVQiaoxinLi.pdf)
+[Download CV (PDF)](files/CV_Qiaoxin_Li.pdf){.btn .btn-primary}
+
+*Updated November 4, 2026.*

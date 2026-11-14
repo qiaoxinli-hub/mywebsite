@@ -2,26 +2,26 @@ project:
   type: website
   output-dir: docs
   resources:
+    - files/**
     - blog/posts/post8/figures/**
     - blog/posts/post7/interactive-graph.html
 
 website:
-  title: "Student Name"
-
+  title: "Qiaoxin Li"
   navbar:
     left:
       - href: index.qmd
         text: Home
       - bio.qmd
       - resume.qmd
+      - href: writing-sample.qmd
+        text: Writing Sample
       - blog/index.qmd
-
   page-footer:
     center: |
-      © 2026 Student Name
+      © 2026 Qiaoxin Li
     left: |
       ![](/images/UniversityofPennsylvania_FullLogo_RGB.png){width=100px}
-
 format:
   html:
     theme: flatly

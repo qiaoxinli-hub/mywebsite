@@ -1,0 +1,21 @@
+---
+title: "Writing Sample"
+---
+
+Two applied econometrics reports are available below.
+
+## Case Study 1: Choosing an Email Campaign
+
+**Econometrics I | Completed October 11, 2026**
+
+This report evaluates a randomized 14-day email campaign test with 18,000 customers. It compares men's merchandise emails, women's merchandise emails, and a no-email control using visits, conversions, and spending. Estimated spending gains were $0.771 per customer for the men's campaign and $0.450 for the women's campaign; after estimated gross margins and delivery costs, net contributions were $0.332 and $0.187 per customer. The report also includes break-even sensitivity and customer-lifecycle analyses.
+
+[Download Case Study 1 (PDF)](files/Case_Study_1_Choosing_an_Email_Campaign.pdf){.btn .btn-outline-primary}
+
+## Case Study 2: Allocating Early Credit Review
+
+**Econometrics II | Midterm report | November 9, 2026**
+
+This report develops a logistic model to prioritize accounts for early credit review. On a 2,400-account test set, the highest-scoring 10% had 80.83% precision. The report estimates $167,910 in net value under an assumption of $900 in avoided loss per correctly identified default, and recommends a monitored pilot to assess actual benefits.
+
+[Download Case Study 2 (PDF)](files/Case_Study_2_Allocating_Early_Credit_Review.pdf){.btn .btn-outline-primary}
