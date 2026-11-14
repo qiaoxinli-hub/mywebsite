@@ -7,7 +7,8 @@ project:
     - blog/posts/post7/interactive-graph.html
 
 website:
-  title: "Qiaoxin Li"
+  title: "Student Name"
+
   navbar:
     left:
       - href: index.qmd
@@ -17,11 +18,13 @@ website:
       - href: writing-sample.qmd
         text: Writing Sample
       - blog/index.qmd
+
   page-footer:
     center: |
-      © 2026 Qiaoxin Li
+      © 2026 Student Name
     left: |
       ![](/images/UniversityofPennsylvania_FullLogo_RGB.png){width=100px}
+
 format:
   html:
     theme: flatly

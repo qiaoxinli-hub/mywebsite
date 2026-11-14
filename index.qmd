@@ -6,23 +6,23 @@ title: ""
 ::: {.column width="35%"}
 ![](images/profile.png){width="100%"}
 :::
+
 ::: {.column width="65%"}
 ![](images/UniversityofPennsylvania_FullLogo_RGB.png){width="250px"}
 
 # Qiaoxin Li
 
-University of Pennsylvania
+University of Pennsylvaina
 
-Hi, I’m Joanna (Qiaoxin) Li. Welcome to my personal website!
+Hi, I am Joanna. Welcome to my personal website!
 
 ### Quick Links
 
 <div>
-  <a href="https://github.com/qiaoxinli-hub" aria-label="GitHub"><i class="bi bi-github fs-3"></i></a>
-  <a href="https://linkedin.com/in/joanna-li-68489b435" aria-label="LinkedIn"><i class="bi bi-linkedin fs-3"></i></a>
-  <a href="resume.qmd" aria-label="Resume"><i class="bi bi-file-earmark-person-fill fs-3"></i></a>
-  <a href="writing-sample.qmd" aria-label="Writing Sample"><i class="bi bi-journal-text fs-3"></i></a>
-  <a href="mailto:qiaoxinl@sas.upenn.edu" aria-label="Email"><i class="bi bi-envelope-fill fs-3"></i></a>
+  <a href="https://github.com/qiaoxinli-hub"><i class="bi bi-github fs-3"></i></a>
+  <a href="https://linkedin.com/in/joanna-li-68489b435"><i class="bi bi-linkedin fs-3"></i></a>
+  <a href="resume.qmd"><i class="bi bi-file-earmark-person-fill fs-3"></i></a>
+  <a href="mailto:qiaoxinl@sas.upenn.edu"><i class="bi bi-envelope-fill fs-3"></i></a>
 </div>
 :::
 :::::
