@@ -12,19 +12,32 @@ categories:
 
 ## 1. Intuition vs. Financial Indicators: A Class Experiment
 
-In a class exercise, 45 teams of two built two portfolios of $100,000 for a two-month period. One portfolio was chosen by intuition; the other used simple financial indicators, including the Sharpe ratio, Jensen's alpha, and correlations among stocks.
+In our class experiment, 45 teams of two built two portfolios of $100,000 for a two-month period. One portfolio was chosen by intuition; the other used simple financial indicators, including the Sharpe ratio, Jensen's alpha, and correlations among stocks.
 
-Across teams, the indicator-based portfolios finished $1,909 higher on average, a 1.89% premium. The two portfolio values were moderately correlated ($r = 0.4017$), so teams that did well with one approach tended to do somewhat well with the other.
+Analyzing the final portfolio values across 45 teams, we found that Portfolio 2 outperformed Portfolio 1 on average. Specifically, the mean final value of Portfolio 2 was about $\$1,909$ higher，a **1.89%** premium over Portfolio 1. We also noted a moderate positive correlation ($Corr(P_1, P_2) = 0.4017$) between the two portfolios, indicating that teams that did well with one approach tended to do somewhat well with the other, though the correlation isn't that strong.
 
-Because each team supplied both portfolios, we tested the within-team differences. The two-sided paired t-test returned $p = 0.0998$, and a bootstrap 95% confidence interval for the mean difference ran from $-\$298$ to $\$4,119$. Both results include zero, so the exercise does not establish a reliable advantage for financial indicators. A one-sided test gives $p = 0.0499$, but this borderline result does not change the more cautious two-sided conclusion.
+This leads to a question: is this $1,909 advantage statistically significant, or is it just random noise? To find out, we tested the within-team differences.
 
-This small experiment raises a broader question: can a model identify useful patterns in historical market data?
+*   **Null Hypothesis ($H_0$):** $E(P_2 - P_1) = 0$
+*   **Alternative Hypothesis ($H_1$):** $E(P_2 - P_1) \neq 0$
 
-## 2. Why Stock Returns Are Difficult to Predict
+The two-sided paired t-test returned $p = 0.0998$. Since  $0.0998 > 0.05$ we don't have enough statistical evidence at the 5% significance level to prove a difference between the two portfolios.
 
-Prices respond quickly to public information, while much of a stock's next move depends on news that has not yet arrived. Daily returns are also noisy, and relationships that appear in one period may weaken when market conditions change. A flexible model can therefore fit past fluctuations without learning a signal that persists.
+We then ran a one-sided paired t-test to see if Portfolio 2 was specifically *greater* than Portfolio 1 ($H_1: E(P_2 - P_1) > 0$). This gave a p-value of **0.0499**. Because $0.0499 < 0.05$, we can technically reject the null hypothesis at the 5% level, suggesting weak evidence that financial indicators provide an edge.
 
-For that reason, a credible backtest needs a strict time split, careful protection against overlapping future targets, and performance measures that account for trading costs. These principles guide the comparison below.
+To be more rigorous, we also applied a Welch's Two Sample t-test, which yielded a non-significant p-value of **0.187**. Finally, as a robustness check, we generated bootstrap 95% confidence interval for the mean difference was $[-298.19, 4119.27]$. Both results include zero, we can't rule out the possibility that the observed advantage was random noise.
+
+Therefore, the final conclusion is: **there isn't sufficient evidence to prove that simple financial indicators systematically outperform human intuition.**
+
+## 2. Why Predicting Stock Returns Is Difficult
+
+The class experiment leaves open a broader question: can a more flexible model find useful patterns in market data? Before testing one, it helps to understand why stock returns are hard to predict.
+
+In an efficient market, prices adjust quickly to public information. Past prices may therefore contain little information about future returns after trading costs. Much of a stock’s next move depends on news that was not known when the prediction was made.
+
+Returns also contain substantial noise. A complex model can mistake random patterns in a short history for a persistent signal. It may fit the training data well but fail when market conditions change.
+
+Even a real pattern may not last. When investors act on the same signal, their trading can move prices and reduce the opportunity. Investor behavior also changes over time: fear, optimism, and herding can push prices away from what past data would suggest. These limits make out-of-sample evaluation essential.
 
 ## 3. The Baseline Model
 
@@ -80,7 +93,7 @@ From above, we can see that improved model reduces RMSE by about 4% and MAE by a
 
 After modeled costs, the improved portfolio grows $1 to $2.20, ahead of the baseline at $1.93 and SPY at $1.63. But that higher cumulative return comes with greater market exposure and a deeper drawdown: the improved model's beta is 1.63 and its maximum drawdown is 13.33%, compared with 0.75 and 5.38% for the net baseline. Its Sharpe measure is also lower than the baseline's and SPY's. The improved model leads in total return, but not in risk-adjusted performance.
 
-Modeled transaction costs reduce cumulative return by about 9.4 percentage points for each active strategy. The effect depends on how much the portfolio changes at each rebalance, even with a cost assumption of only 10 basis points per dollar traded.
+Modeled transaction costs reduce cumulative return by about **9.4%** for each active strategy. The effect depends on how much the portfolio changes at each rebalance, even with a cost assumption of only 10 basis points per dollar traded.
 
 ![Figure 1. Out-of-sample growth of $1 for the net baseline, net improved model, and SPY over the same holding periods.](oos_cumulative_returns.png){width="800px"}
 
@@ -104,9 +117,13 @@ The latest prediction snapshot, dated November 16, 2026, ranks these stocks high
 | 9 | BKNG | 3.04% | 6.92% |
 | 10 | CAT | 3.04% | 6.92% |
 
-### limitations of the improved model
+### Limitations of the improved model
 
 Despite its improvements, the model still has several limitations.
 
-First, the improved features modestly reduce forecast error and drives a higher cumulative return in this sample, but it also earns a higher cumulative return in this sample, the resulting portfolio takes on greater market exposure, suffers a larger drawdown, and yields a lower Sharpe ratio. Besides, The test also covers only 35 holding periods, and hyperparameter tuning relies on just five monthly portfolio returns, limiting the reliability of the results. Finally, the transaction-cost model uses a fixed rate and does not account for bid-ask spreads or market impact. Results from this period may also not hold under different market conditions.
+First, the improved features modestly reduce forecast error and drives a higher cumulative return in this sample, but it also earns a higher cumulative return in this sample, the resulting portfolio takes on greater market exposure, suffers a larger drawdown, and yields a lower Sharpe ratio. 
+
+Besides, The test also covers only 35 holding periods, and hyperparameter tuning relies on just five monthly portfolio returns, limiting the reliability of the results. 
+
+Finally, the transaction-cost model uses a fixed rate and does not account for bid-ask spreads or market impact. Results from this period may also not hold under different market conditions.
 
